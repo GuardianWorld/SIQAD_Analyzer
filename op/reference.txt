@@ -1,0 +1,4 @@
+3 < The number of perturbers to be searched.
+-50 -14 1 << The DBs Coordinates on N M L
+-50 -3 1
+-30 -8 0 << Output last DB you want to check.

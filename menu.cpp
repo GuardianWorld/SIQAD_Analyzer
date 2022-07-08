@@ -10,8 +10,8 @@ void menu(bool resultOutput)
 	cout << "  _________________________________________________ \n";
 	cout << " |                       Menu                      |\n";
 	cout << " |--------------------- Input ---------------------|\n";
-	cout << " |  1) Convert SQD folder to Simulation files      |\n";
-	cout << " |  2) Load into memory wanted simulation file     |\n";
+	cout << " |  1) Convert SQD folder to Simulation files      |\n"; //OK
+	cout << " |  2) Load into memory wanted simulation file     |\n"; //
 	cout << " |  3) Load list of perturbers for simulation file |\n";
 	cout << " |-------------------- Runtime --------------------|\n";
 	cout << " |  4) Make permutations of the loaded file        |\n";
@@ -46,8 +46,8 @@ float conversionText()
 
 void loadSimText()
 {
-	cout << "> Please type the file name\n
-	> Attention: The .XML will be automatically added!!\n
-	> Addendum: The file should be on the folder simulationFiles\n
-	> Addendum2: The XML file can obtained by converting the .SQD file with the option 1) >> ";
+	cout << "> Please type the file name\n";
+	cout << "> Attention: The .XML will be automatically added!!\n";
+	cout << "> Addendum: The file should be on the folder simulationFiles\n";
+	cout << "> Addendum2: The XML file can obtained by converting the .SQD file with the option 1) >> ";
 }

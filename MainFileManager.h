@@ -26,7 +26,7 @@
 #endif
 
 
-using namespace std;
+//using namespace std;
 
 #define MaxDBS 300
 #define INFINITY 9999999;

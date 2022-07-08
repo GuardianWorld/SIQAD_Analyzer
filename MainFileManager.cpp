@@ -1,24 +1,49 @@
 #include "MainFileManager.h"
 
-int convertSQDtoSim(float miValue)
+int convertSQDtoSim(float miValue) //Function that will convert the .SQD to a .XML simulation.
 {
-	ofstream finalFile;
+	//Variables
+	int y = 0;
+	char *fileBuffer = new char[20000];
+    char *basicInfoBuffer = new char[20000];
+	std::stringstream baseFileBuffer;
+    string filename;
+    string finalFileName;
+    string finalFileBuffer;
 
-
+	//FILES
+	std::ofstream finalFile;
+	FILE *fptr;
+    //FILE *baseFile;
+	std::ifstream baseFile;
+	
+	//DIR
 	DIR *d;
     struct dirent *dir;
     d = opendir(dir_input_sqd);
-    FILE *fptr;
-    FILE *baseFile;
-    //FILE *finalFile;
-    string filename;
-    string finalFileName;
-    char *fileBuffer = new char[20000];
-    char *basicInfoBuffer = new char[20000];
-    string finalFileBuffer;
-    int y = 0;
+
     if(d)
     {
+		baseFile.open(dir_basicInfoConfig);
+		if(!baseFile)
+		{
+			cerr << "Error: File could not be opened\n";
+			exit(-1);
+		}
+		baseFileBuffer << baseFile.rdbuf();
+		/*while(!baseFile.eof())
+		{
+			baseFile >> auxBuffer;
+			baseFileBuffer.append(auxBuffer + '\n');
+		}*/
+		baseFile.close();
+		/*baseFile = fopen(dir_basicInfoConfig, "r");
+        while(fgets(fileBuffer, 20000, baseFile) != NULL)
+        {
+            baseFileBuffer.append(fileBuffer);
+         }
+        //cout << finalFileBuffer << endl;
+        fclose(baseFile);*/
         while((dir = readdir(d)) != NULL)
         {
             if(dir->d_name[0] != '.')
@@ -33,16 +58,10 @@ int convertSQDtoSim(float miValue)
                 finalFileName.append("xml");
                 finalFileBuffer = "";
                 y = 0;
-                cout << filename << endl;
-                cout << finalFileName << endl;
+                std::cout << filename << endl;
+                std::cout << finalFileName << endl;
                 //Converting from SQD to XML
-                baseFile = fopen(dir_basicInfoConfig, "r");
-                while(fgets(fileBuffer, 20000, baseFile) != NULL)
-                {
-                    finalFileBuffer.append(fileBuffer);
-                }
-                //cout << finalFileBuffer << endl;
-                fclose(baseFile);
+				finalFileBuffer.append(baseFileBuffer.str());
                 fptr = fopen(filename.c_str(), "r");
                 while(fgets(fileBuffer, 20000, fptr) != NULL)
                 {
@@ -57,7 +76,7 @@ int convertSQDtoSim(float miValue)
                 finalFile << finalFileBuffer;
 				finalFile.close();
 
-                    //cout << finalFileBuffer << endl;
+                    //std::cout << finalFileBuffer << endl;
 
 
             }

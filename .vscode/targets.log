@@ -1,20 +1,12 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 4.2.1
- 
 # Built for x86_64-pc-linux-gnu
- 
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
- 
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
- 
 # This is free software: you are free to change and redistribute it.
- 
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
- 
-# Make data base, printed on Tue Jul  5 15:54:03 2022
- 
+# Make data base, printed on Fri Jul  8 16:00:29 2022
 
 # Variables
 
@@ -87,7 +79,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 XCURSOR_THEME = breeze_cursors
 # environment
-SESSION_MANAGER = local/gwlinux-Infoway-w7535:@/tmp/.ICE-unix/1069,unix/gwlinux-Infoway-w7535:/tmp/.ICE-unix/1069
+SESSION_MANAGER = local/gwlinux-Infoway-w7535:@/tmp/.ICE-unix/1065,unix/gwlinux-Infoway-w7535:/tmp/.ICE-unix/1065
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -101,7 +93,7 @@ LS_COLORS =
 # environment
 XDG_SESSION_DESKTOP = KDE
 # environment
-SSH_AUTH_SOCK = /tmp/ssh-aCDt5UxUVcex/agent.906
+SSH_AUTH_SOCK = /tmp/ssh-0B1xq7CaDbgm/agent.911
 # automatic
 %F = $(notdir $%)
 # environment
@@ -117,7 +109,7 @@ KDE_SESSION_VERSION = 5
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 1003
+SSH_AGENT_PID = 995
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = KDE
 # environment
@@ -131,7 +123,7 @@ VSCODE_CODE_CACHE_PATH = /home/gwlinux/.config/Code/CachedData/30d9c6cd9483b2cc5
 # environment
 LOGNAME = gwlinux
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # automatic
 +F = $(notdir $+)
 # environment
@@ -151,7 +143,7 @@ MAKECMDGOALS := all
 # environment
 SHLVL = 0
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-55136142-ae93-449e-848c-6bbb19977746.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-9ad3340d-6b70-42ab-88d2-567ea819b84a.sock
 # environment
 XDG_SESSION_ID = 1
 # environment
@@ -221,7 +213,7 @@ LC_ADDRESS = pt_BR.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 11056
+VSCODE_PID = 13103
 # environment
 KDE_SESSION_UID = 1000
 # variable set hash-table stats:
@@ -233,9 +225,9 @@ KDE_SESSION_UID = 1000
 
 # Directories
 
-# . (device 2053, inode 4851886): 15 files, no impossibilities.
+# . (device 2053, inode 4851886): 22 files, no impossibilities.
 
-# 15 files, no impossibilities in 1 directories.
+# 22 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -297,14 +289,14 @@ makefile:
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 27 / storage = 268 B / avg = 9 B
  
+# current buf: size = 8162 B / used = 268 B / count = 27 / avg = 9 B
 
-# strcache buffers: 1 (0) / strings = 20 / storage = 194 B / avg = 9 B
-# current buf: size = 8162 B / used = 194 B / count = 20 / avg = 9 B
-
-# strcache performance: lookups = 27 / hit rate = 25%
+# strcache performance: lookups = 34 / hit rate = 20%
 # hash-table stats:
-# Load=20/8192=0%, Rehash=0, Collisions=1/27=4%
-# Finished Make data base on Tue Jul  5 15:54:03 2022
+# Load=27/8192=0%, Rehash=0, Collisions=1/34=3%
+# Finished Make data base on Fri Jul  8 16:00:29 2022
 
  

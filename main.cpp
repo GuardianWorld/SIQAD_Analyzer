@@ -8,7 +8,7 @@ int main()
 	// Variable Creation //
 	int buffer = 0;
 	int x = -1;
-	float miValue = 0.0;
+	string miValue;
 	bool resultOutput = false;
 	int permsLoaded = 0;
 	int perms = 0;
@@ -41,12 +41,31 @@ int main()
 			break;
 
 			case 2:
-			loadSimText();
-			cin >> fileName;
-			fileName = dir_simulation + fileName + ".xml";
-			//cout << fileName + '\n';
+			fileName = loadSimText();
 			dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
+			//dbAmount = readSim((dir_simulation + loadSimText() + ".xml"), dba, bufferStart, bufferEnd);
 			break;
+
+			case 3:
+				if (dbAmount == 0) { cout << "Invalid, load XML first. \n"; break; }
+				fileName = loadPerturberText();
+				permsLoaded = readList(fileName, dba, dbAmount, dbd);
+			break;
+
+			case 4:
+			
+			break;
+
+			case 5:
+
+			break;
+
+			case 6:
+			
+			break;
+
+			case 7:
+			
 			break;
 		}
 		/*switch (x)

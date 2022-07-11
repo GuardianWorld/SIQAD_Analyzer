@@ -25,18 +25,24 @@ void menu(bool resultOutput)
 	cout << " |_________________________________________________|\n";
 }
 
-float conversionText()
+string conversionText()
 {
 	string inputx;
-	float valueMi = -0.25;
+	string valueMi;
 
-	cout << "> The entire sqdInput folder will be converted into Simulation files. \n";
-	cout << "> Do you want to convert the entire folder? (y/n) >> ";
-	cin >> inputx;
+	std::cout << "> The entire sqdInput folder will be converted into Simulation files. \n";
+	std::cout << "> Do you want to convert the entire folder? (y/n) >> ";
+	std::cin >> inputx;
 	if(inputx.compare("y") == 0 || inputx.compare("Y") == 0);
 	{
-		cout << "> Please type the wanted value of Mi, or press enter to leave the default of -0.25 >> ";
-		cin >> valueMi;
+		std::cout << "> Please type the wanted value of Mi, or press enter to leave the default of -0.25 >> ";
+		//getchar(); // Here just so it can take the floating \n from Cin
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::getline(std::cin, valueMi);
+		if(valueMi.empty())
+		{
+			valueMi = "-0.25";
+		}
 
 		return valueMi;
 	}
@@ -44,10 +50,21 @@ float conversionText()
 
 }
 
-void loadSimText()
+string loadSimText()
 {
-	cout << "> Please type the file name\n";
-	cout << "> Attention: The .XML will be automatically added!!\n";
-	cout << "> Addendum: The file should be on the folder simulationFiles\n";
-	cout << "> Addendum2: The XML file can obtained by converting the .SQD file with the option 1) >> ";
+	string fileName;
+	std::cout << "> Please type the file name\n";
+	std::cout << "> Attention: The .XML will be automatically added!!\n";
+	std::cout << "> Addendum: The file should be on the folder simulationFiles\n";
+	std::cout << "> Addendum2: The XML file can obtained by converting the .SQD file with the option 1)\n >> ";
+	cin >> fileName;
+	return dir_simulation + fileName + ".xml";
+}
+
+string loadPerturberText()
+{
+	string fileName;
+	std::cout << "> Please type the file name\n> Attention: The .txt will be automatically added!!\n> Addendum: The file should be on the folder op, check reference file.\n >> ";
+	std::cin >> fileName;
+	return dir_operations + fileName + ".txt";
 }

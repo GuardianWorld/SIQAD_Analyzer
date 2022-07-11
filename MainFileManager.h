@@ -28,8 +28,11 @@
 
 //using namespace std;
 
+#define doubleQuotes '\"'
+
 #define MaxDBS 300
 #define INFINITY 9999999;
+
 
 typedef struct elecDist {
 	double energy = INFINITY;
@@ -65,7 +68,7 @@ class danglingBonds {
 
 			for (std::string::size_type i = 0; i < str.size(); ++i)
 			{
-				if (str[i] == 34)
+				if (str[i] == doubleQuotes)
 				{
 					found = !found;
 					x = 0;
@@ -152,7 +155,7 @@ class danglingBonds {
 		}
 };
 
-int convertSQDtoSim(float miValue);
+int convertSQDtoSim(string miValue);
 
 int readSim(string fileName, danglingBonds dba[MaxDBS], string& bufferStart, string& bufferEnd);
 int readList(string fileName, danglingBonds dba[], int dbAmount, int* disturberArray);

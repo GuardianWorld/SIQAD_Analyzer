@@ -1,12 +1,14 @@
 #include "MainFileManager.h"
 
-int convertSQDtoSim(float miValue) //Function that will convert the .SQD to a .XML simulation.
+int convertSQDtoSim(string miValue) //Function that will convert the .SQD to a .XML simulation.
 {
 	//Variables
 	int y = 0;
 	char *fileBuffer = new char[20000];
     char *basicInfoBuffer = new char[20000];
+	size_t found;
 	std::stringstream baseFileBuffer;
+	string baseFileAux;
     string filename;
     string finalFileName;
     string finalFileBuffer;
@@ -31,19 +33,14 @@ int convertSQDtoSim(float miValue) //Function that will convert the .SQD to a .X
 			exit(-1);
 		}
 		baseFileBuffer << baseFile.rdbuf();
-		/*while(!baseFile.eof())
-		{
-			baseFile >> auxBuffer;
-			baseFileBuffer.append(auxBuffer + '\n');
-		}*/
+		baseFileAux = baseFileBuffer.str();
+		found = baseFileAux.find("<muzm>");
+		baseFileAux.replace(found + 6, 5, miValue);
+		cout << found << '\n' << baseFileAux << '\n';
 		baseFile.close();
-		/*baseFile = fopen(dir_basicInfoConfig, "r");
-        while(fgets(fileBuffer, 20000, baseFile) != NULL)
-        {
-            baseFileBuffer.append(fileBuffer);
-         }
-        //cout << finalFileBuffer << endl;
-        fclose(baseFile);*/
+
+
+
         while((dir = readdir(d)) != NULL)
         {
             if(dir->d_name[0] != '.')
@@ -62,7 +59,7 @@ int convertSQDtoSim(float miValue) //Function that will convert the .SQD to a .X
                 std::cout << finalFileName << endl;
                 //Converting from SQD to XML
 				finalFileBuffer.append(baseFileBuffer.str());
-                fptr = fopen(filename.c_str(), "r");
+                /*fptr = fopen(filename.c_str(), "r");
                 while(fgets(fileBuffer, 20000, fptr) != NULL)
                 {
                     if(y > 7)
@@ -77,7 +74,7 @@ int convertSQDtoSim(float miValue) //Function that will convert the .SQD to a .X
 				finalFile.close();
 
                     //std::cout << finalFileBuffer << endl;
-
+*/
 
             }
 
@@ -161,6 +158,7 @@ int readSim(string fileName, danglingBonds dba[MaxDBS], string& bufferStart, str
 	cout << "> Done!\n";
 	return db;
 }
+
 
 int readList(string fileName, danglingBonds dba[], int dbamount, int *disturberArray)
 {

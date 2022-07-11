@@ -11,3 +11,7 @@ void menu(bool resultOutput);
 string conversionText();
 string loadSimText();
 string loadPerturberText();
+string loadPermutationText();
+void annealCallText();
+string singleResultsText();
+int allResultsText();

@@ -18,7 +18,7 @@ int main()
 	string fileName;
 	string bufferStart;
 	string bufferEnd;
-	string SimFolder = dir_anneal;
+	string perName;
 	// Other Creation //
 	danglingBonds *dba = new danglingBonds[MaxDBS];
 
@@ -37,12 +37,15 @@ int main()
 		{
 			case 1:
 				miValue = conversionText();
-				buffer = convertSQDtoSim(miValue);
+				if(!noConversion)
+				{
+					buffer = convertSQDtoSim(miValue);
+				}
 			break;
 
 			case 2:
-			fileName = loadSimText();
-			dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
+				fileName = loadSimText();
+				dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
 			//dbAmount = readSim((dir_simulation + loadSimText() + ".xml"), dba, bufferStart, bufferEnd);
 			break;
 
@@ -53,60 +56,47 @@ int main()
 			break;
 
 			case 4:
-			
+				perName = loadPermutationText();
+				if (perName.compare("0") != 0)
+				{
+					createPermutations(dba, bufferStart, bufferEnd, dbAmount, perName);
+				}
 			break;
 
 			case 5:
-
+				annealCallText();
+				callAnneal(dbAmount);
 			break;
 
 			case 6:
-			
+				if (dbAmount == 0 || permsLoaded == 0)
+				{
+					cout << "> Error! Please verify if a Problem File and a Perturber File are loaded in memory!\n";
+				}
+				else
+				{
+					fileName = singleResultsText();
+					readResultFile(fileName, dba, dbAmount);
+					printResult(dba, dbAmount);
+				}
 			break;
 
 			case 7:
-			
+				if (dbAmount == 0 || permsLoaded == 0)
+				{
+						cout << "> Error! Please verify if a Problem File and a Perturber File are loaded in memory!\n";
+				}
+			break;
+			case 9:
+				for (int i = 0; i < dbAmount; i++)
+				{
+				cout << "> " << dba[i].getN() << ' ' << dba[i].getM() << ' ' << dba[i].getL() << ' ' << dba[i].getX() << ' ' << dba[i].getY() << ' ' << dba[i].getActive() << ' ' << dba[i].getDisturber() << ' ' << dba[i].getObserved() << ' ' << dba[i].getState() << '\n';
+				}
 			break;
 		}
 		/*switch (x)
 		{
-		case 2: // Load Perturbers;
-			if (dbAmount == 0) { cout << "Invalid, load XML first. \n"; break; }
-			cout << "> Please type the file name\n> Attention: The .txt will be automatically added!!\n> Addendum: The file should be on the folder op, check reference file.\n >> ";
-			cin >> fileName;
-			fileName = "op\\" + fileName + ".txt";
-			permsLoaded = readList(fileName, dba, dbAmount, dbd);
-		break;
-		case 3:
-			cout << "> Are you sure you wanna execute the program?\n> This will make several file variations on the folder annealInput, make sure its empty!\n";
-			cout << "> type 1 to run, type 0 to return: ";
-			cin >> x;
-			if (x == 1)
-			{
-				createPermutations(dba, bufferStart, bufferEnd, dbAmount);
-				//execute;
-			}
-		break;
-		case 4:
-			cout << "> Calling Anneal! Check the results in the Results folder after completion!\n";
-			cout << "> Please type the amount of permutations that you want to test (Files should be in Output):\n >> ";
-			cin >> perms;
-			callAnneal(SimFolder, dbAmount, perms);
-		break;
-		case 5: 
-			if (dbAmount == 0 || permsLoaded == 0)
-			{
-				cout << "> Error! Please verify if a Problem File and a Perturber File are loaded in memory!\n";
-			}
-			else
-			{
-				cout << "> Please type the file name\n> Attention: The file must exist in the results folder, must be a result file\n >> ";
-				cin >> fileName;
-				fileName = "results\\" + fileName + ".xml";
-				readResultFile(fileName, dba, dbAmount);
-				printResult(dba, dbAmount);
-			}
-		break;
+
 		case 6:
 			if (dbAmount == 0 || permsLoaded == 0)
 			{

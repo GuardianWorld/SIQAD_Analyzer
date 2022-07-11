@@ -218,11 +218,10 @@ void removeSpaces(string &str)
 	str.erase(noSpace, str.end());
 }
 
-int createPermutations(danglingBonds dba[], string first, string second, int dbAmount)
+int createPermutations(danglingBonds dba[], string first, string second, int dbAmount, string fileName)
 {
 	ofstream SQDFile;
-	string filename;
-	string str;
+
 	int next = 1;
 	int lenght = 0;
 
@@ -247,6 +246,7 @@ int createPermutations(danglingBonds dba[], string first, string second, int dbA
 	}
 
 	string output = firstOutput;
+	output.append("0.xml");
 	SQDFile.open(output);
 	for (int x = 0; x < dbAmount; x++)
 	{
@@ -524,9 +524,37 @@ void printFullResult(danglingBonds dba[], int dbAmount)
 
 }
 
-void callAnneal(string sFolder, int dbAmount, int perms)
+void callAnneal(int dbAmount)
 {
-	string outputFolder = { 0 };
+	DIR *d;
+    struct dirent *dir;
+    d = opendir(dir_input_anneal_xml);
+    string command;
+    string filename;
+    string outputname;
+    if(d)
+    {
+        while((dir = readdir(d)) != NULL)
+        {
+            if(dir->d_name[0] != '.')
+            {
+                filename = dir_input_anneal_xml;
+                outputname = dir_output_xml;
+                command = dir_anneal;
+                filename.append(dir->d_name);
+                outputname.append(dir->d_name);
+                command.append(filename);
+                command.append(" ");
+                command.append(outputname);
+                //cout << filename << endl;
+                //cout << outputname << endl;
+                //cout << command << endl;
+				cout << "> Attempting to call command: " << command.c_str() << '\n';
+                //system(command.c_str());
+            }
+        }
+    }
+	/*string outputFolder = { 0 };
 	string result = { 0 };
 	string command = { 0 };
 	string AnnealInput;
@@ -549,6 +577,6 @@ void callAnneal(string sFolder, int dbAmount, int perms)
 		else
 		{
 			cout << "> Error! \n";
-		}*/
-	}
+		}
+	}*/
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include <string>
+//#include <string>
 #include <sstream>
 #include <dirent.h>
 #include "OSFileCorrector.h"
@@ -159,11 +159,11 @@ int convertSQDtoSim(string miValue);
 
 int readSim(string fileName, danglingBonds dba[MaxDBS], string& bufferStart, string& bufferEnd);
 int readList(string fileName, danglingBonds dba[], int dbAmount, int* disturberArray);
-int createPermutations(danglingBonds dba[], string first, string second, int dbAmount);
+int createPermutations(danglingBonds dba[], string first, string second, int dbAmount, string fileName);
 void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, string first, string second, int* next);
 void removeSpaces(string &str);
 
 void readResultFile(string fileName, danglingBonds dba[], int dbAmount);
 void printResult(danglingBonds dba[], int dbAmount);
-void callAnneal(string sFolder, int dbAmount, int perms);
+void callAnneal (int dbAmount);
 void printAllResults(danglingBonds dba[], int dbAmount, int perms);

@@ -46,6 +46,7 @@ string conversionText()
 
 		return valueMi;
 	}
+	std::cout << "> Operation aborted\n";
 	return noConversion;
 
 }
@@ -64,7 +65,52 @@ string loadSimText()
 string loadPerturberText()
 {
 	string fileName;
-	std::cout << "> Please type the file name\n> Attention: The .txt will be automatically added!!\n> Addendum: The file should be on the folder op, check reference file.\n >> ";
+	std::cout << "> Please type the file name\n";
+	std::cout << "> Attention: The .txt will be automatically added!!\n";
+	std::cout << "> Addendum: The file should be on the folder op, check reference file.\n >> ";
 	std::cin >> fileName;
 	return dir_operations + fileName + ".txt";
+}
+
+string loadPermutationText()
+{
+	string y;
+	std::cout << "> Are you sure you wanna execute the program?\n";
+	std::cout << "> This will make several file variations on the folder annealInput, make sure its empty!\n";
+	std::cout << "> [y/n]: ";
+	std::cin >> y;
+
+	if(y.compare("y") == 0 || y.compare("Y") == 0)
+	{
+		std::cout << "> What is the name for the permutation files?\n >>";
+		std::cin >> y;
+		return y;
+	}
+	return "0";
+}
+
+void annealCallText()
+{
+	std::cout << "> Calling SimAnneal for all files in the annealInput folder\n";
+}
+
+string singleResultsText()
+{
+	string fileName;
+	cout << "> Please type the file name\n> Attention: The file must exist in the results folder, must be a result file\n >> ";
+	cin >> fileName;
+	return dir_output_xml + fileName + ".xml";
+}
+
+int allResultsText()
+{
+	string y;
+	std::cout << "> This will read all results from the result folder.\n";
+	std::cout << "> Make sure it's only from the current problem! Are you sure?\n";
+	std::cout << "> [y/n]: ";
+	if(y.compare("y") == 0 || y.compare("Y"))
+	{
+		return 1;
+	}
+	return 0;
 }

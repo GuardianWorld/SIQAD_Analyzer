@@ -245,8 +245,7 @@ int createPermutations(danglingBonds dba[], string first, string second, int dbA
 		}
 	}
 
-	string output = firstOutput;
-	output.append("0.xml");
+	string output = firstOutput + fileName + "0.xml";
 	SQDFile.open(output);
 	for (int x = 0; x < dbAmount; x++)
 	{
@@ -263,13 +262,13 @@ int createPermutations(danglingBonds dba[], string first, string second, int dbA
 
 	for (int i = 1; i <= lenght; i++) {
 		//cout << "\nThe all possible combination of length " << i << " for the given array set:\n";
-		Combi(combin, i, 0, 0, check, lenght, first, second, &next);
+		Combi(combin, i, 0, 0, check, lenght, first, second, &next, fileName);
 	}
 	cout << "> Done!\n";
 	return 0;
 
 }
-void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, string first, string second, int* next)
+void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, string first, string second, int* next, string fileName)
 {
 	ofstream SQDFile;
 	if (currLen > reqLen)
@@ -277,7 +276,7 @@ void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, stri
 	else if (currLen == reqLen) {
 		//cout << "\t";
 		string output;
-		output = dir_input_anneal_xml + std::to_string(*next) + ".xml";
+		output = dir_input_anneal_xml + fileName + std::to_string(*next) + ".xml";
 		SQDFile.open(output);
 		SQDFile << first;
 		for (int i = 0; i < l; i++) {
@@ -296,9 +295,9 @@ void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, stri
 		return;
 	}
 	check[s] = true;
-	Combi(a, reqLen, s + 1, currLen + 1, check, l, first, second, next);
+	Combi(a, reqLen, s + 1, currLen + 1, check, l, first, second, next, fileName);
 	check[s] = false;
-	Combi(a, reqLen, s + 1, currLen, check, l, first, second, next);
+	Combi(a, reqLen, s + 1, currLen, check, l, first, second, next, fileName);
 }
 
 void readResultFile(string fileName, danglingBonds dba[], int dbAmount)
@@ -467,7 +466,7 @@ void readResultFile(string fileName, danglingBonds dba[], int dbAmount)
 		//cout << dba[1].getX() << ' ' << dba[1].getState() << '\n';
 		//cout << dba[2].getX() << ' ' << dba[2].getState() << '\n';
 		//cout << bufferStart << '\n' << bufferEnd;
-		cout << "distribution Energy: " << distribution.energy << " distribution count: " << distribution.count << " distribution valid:" << distribution.valid << " distribution state: " << distribution.state_count << " distribution coords: " << distribution.coordinates << '\n';
+		//cout << "distribution Energy: " << distribution.energy << " distribution count: " << distribution.count << " distribution valid:" << distribution.valid << " distribution state: " << distribution.state_count << " distribution coords: " << distribution.coordinates << '\n';
 		ResultFile.close();
 		
 	}
@@ -498,30 +497,29 @@ void printResult(danglingBonds dba[], int dbAmount)
 	}
 }
 
-void printAllResults(danglingBonds dba[], int dbAmount, int perms)
-{
-	for (int x = 0; x < perms; x++)
-	{
-		for (int y = 0; x < dbAmount; x++)
-		{
-			if (dba[x].getObserved() == 1)
-			{
-				if (dba[x].getState() == 0)
-				{
-					cout << "The observed DB is Neutral (Transparent)\n";
-				}
-				else
-				{
-					cout << "The observed DB is Negative (Blue)\n";
-				}
-			}
-		}
-	}
-}
-
 void printFullResult(danglingBonds dba[], int dbAmount)
 {
-
+	DIR *d;
+    struct dirent *dir;
+    d = opendir(dir_output_xml);
+    string command;
+    string filename;
+    string purefileName;
+    if(d)
+    {
+        while((dir = readdir(d)) != NULL)
+        {
+            if(dir->d_name[0] != '.')
+            {
+                purefileName = dir->d_name;
+				filename = dir_output_xml + purefileName;
+                cout << filename << endl;
+				cout << "> File " << purefileName << ":\n";
+				readResultFile(filename, dba, dbAmount);
+				printResult(dba, dbAmount);
+            }
+        }
+    }
 }
 
 void callAnneal(int dbAmount)
@@ -543,40 +541,47 @@ void callAnneal(int dbAmount)
                 command = dir_anneal;
                 filename.append(dir->d_name);
                 outputname.append(dir->d_name);
+				command.append(" ");
                 command.append(filename);
                 command.append(" ");
                 command.append(outputname);
-                //cout << filename << endl;
-                //cout << outputname << endl;
-                //cout << command << endl;
 				cout << "> Attempting to call command: " << command.c_str() << '\n';
-                //system(command.c_str());
+                system(command.c_str());
             }
         }
     }
-	/*string outputFolder = { 0 };
-	string result = { 0 };
-	string command = { 0 };
-	string AnnealInput;
-	int valueR = 0;
-	for (int x = 0; x < perms; x++)
+}
+
+void printExtend(danglingBonds dba[], int dbAmount)
+{
+	int x = 0;
+	int n;
+	int m;
+
+	char canvas[50][50];
+	for(x = 0; x < dbAmount; x++)
 	{
-		AnnealInput = dir_input_anneal_xml + std::to_string(x) + ".xml";
-		//cout << output << '\n';
-		result = dir_output_xml + std::to_string(x) + ".xml";
-		//cout << result << '\n';
-		command = '(' + sFolder + ' ' + AnnealInput + ' ' + result + ')';
-		cout << "> Attempting to call command: " << command.c_str() << '\n';
-		system(command.c_str());
-		//system("./simanneal/simanneal");
-		//valueR = WinExec(command.c_str(), SW_HIDE);
-		/*if (valueR >= 31)
-		{
-			cout << "> Done! \n";
+		n = dba[x].getN();
+		m = dba[x].getM();
+		
+	}
+
+	for(int column = -25; column < 25; column++)
+	{
+		if(x == 2)
+		{				
+			cout << "\n";
+			x = 0;
 		}
-		else
+		for(int line = -25; line < 25; line++)
 		{
-			cout << "> Error! \n";
+			if(x != 2)
+			{
+				cout << "* ";
+			}
 		}
-	}*/
+		cout << "\n";
+		x++;
+	}
+	cout << '\n';
 }

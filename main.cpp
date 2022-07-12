@@ -86,7 +86,15 @@ int main()
 				{
 						cout << "> Error! Please verify if a Problem File and a Perturber File are loaded in memory!\n";
 				}
+				if(allResultsText())
+				{
+					printFullResult(dba, dbAmount);
+				}
 			break;
+			case 8:
+				{
+					//printExtend(dba, dbAmount);
+				}
 			case 9:
 				for (int i = 0; i < dbAmount; i++)
 				{

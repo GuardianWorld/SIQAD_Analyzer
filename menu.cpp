@@ -78,11 +78,12 @@ string loadPermutationText()
 	std::cout << "> Are you sure you wanna execute the program?\n";
 	std::cout << "> This will make several file variations on the folder annealInput, make sure its empty!\n";
 	std::cout << "> [y/n]: ";
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cin >> y;
 
 	if(y.compare("y") == 0 || y.compare("Y") == 0)
 	{
-		std::cout << "> What is the name for the permutation files?\n >>";
+		std::cout << "> What is the name for the permutation files?\n >> ";
 		std::cin >> y;
 		return y;
 	}
@@ -108,6 +109,8 @@ int allResultsText()
 	std::cout << "> This will read all results from the result folder.\n";
 	std::cout << "> Make sure it's only from the current problem! Are you sure?\n";
 	std::cout << "> [y/n]: ";
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::cin >> y;
 	if(y.compare("y") == 0 || y.compare("Y"))
 	{
 		return 1;

@@ -160,10 +160,12 @@ int convertSQDtoSim(string miValue);
 int readSim(string fileName, danglingBonds dba[MaxDBS], string& bufferStart, string& bufferEnd);
 int readList(string fileName, danglingBonds dba[], int dbAmount, int* disturberArray);
 int createPermutations(danglingBonds dba[], string first, string second, int dbAmount, string fileName);
-void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, string first, string second, int* next);
+void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, string first, string second, int* next, string fileName);
 void removeSpaces(string &str);
 
 void readResultFile(string fileName, danglingBonds dba[], int dbAmount);
 void printResult(danglingBonds dba[], int dbAmount);
 void callAnneal (int dbAmount);
-void printAllResults(danglingBonds dba[], int dbAmount, int perms);
+void printFullResult(danglingBonds dba[], int dbAmount);
+void canvas(danglingBonds dba[], int dbAmount);
+

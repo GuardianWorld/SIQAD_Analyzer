@@ -2,3 +2,6 @@ simulationFiles/
 .vscode/targets.log
 .vscode/dryrun.log
 .vscode/configurationCache.log
+annealInput/
+results/
+logfile.txt

@@ -13,12 +13,14 @@
 #ifdef _WIN32
 #include <Windows.h>
 #define OS 1
+#include <string>
 //#include <WinBase.h>
 //#include <winuser.h>
 #elif __linux__
 #include <cstring>
 #include <cstdio>
 #include <algorithm>
+#include <cstdlib>
 #define OS 2
 
 #elif __APPLE__
@@ -31,7 +33,12 @@
 #define doubleQuotes '\"'
 
 #define MaxDBS 300
+#define ForbiddenInfinity -0.99999
 #define INFINITY 9999999;
+
+#define maxCanvasX 30
+#define maxCanvasY 50
+#define maxCanvasLatice 2
 
 
 typedef struct elecDist {
@@ -109,31 +116,28 @@ class danglingBonds {
 			return 0;
 		}
 
-		void setActive() { isActive = !isActive; }
-		int getActive() 
+		void enableActive() { isActive = true; }
+		void disableActive() { isActive = false;}
+		bool getActive() 
 		{ 
-			if (isActive) return 1;
-			return 0;
+			return isActive;
 		}
 		void setDisturber() { disturber = !disturber; }
-		int getDisturber() 
+		bool getDisturber() 
 		{
-			if (disturber) return 1;
-			return 0;
+			return disturber;
 		}
 
 		void setObserver() { observed = !observed; }
-		int getObserved() 
+		bool getObserved() 
 		{ 
-			if (observed) return 1;
-			return 0; 
+			return observed;
 		}
 
 		void setState() { negative = !negative; }
-		int getState()
+		bool getState()
 		{
-			if (negative) return 1;
-			return 0;
+			return negative;
 		}
 		void resetState()
 		{
@@ -163,9 +167,9 @@ int createPermutations(danglingBonds dba[], string first, string second, int dbA
 void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, string first, string second, int* next, string fileName);
 void removeSpaces(string &str);
 
-void readResultFile(string fileName, danglingBonds dba[], int dbAmount);
-void printResult(danglingBonds dba[], int dbAmount);
+void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool fullResult);
+void printResult(danglingBonds dba[], int dbAmount, double *X, double *Y, bool fullResult);
 void callAnneal (int dbAmount);
-void printFullResult(danglingBonds dba[], int dbAmount);
+void printFullResult(danglingBonds dba[], int dbAmount, bool fullResult);
 void canvas(danglingBonds dba[], int dbAmount);
 

@@ -36,7 +36,7 @@ int convertSQDtoSim(string miValue) //Function that will convert the .SQD to a .
 		baseFileAux = baseFileBuffer.str();
 		found = baseFileAux.find("<muzm>");
 		baseFileAux.replace(found + 6, 5, miValue);
-		cout << found << '\n' << baseFileAux << '\n';
+		std::cout << found << '\n' << baseFileAux << '\n';
 		baseFile.close();
 
 
@@ -137,7 +137,7 @@ int readSim(string fileName, danglingBonds dba[MaxDBS], string& bufferStart, str
 				else if (count == 3) // Currently on PHYSLOC
 				{
 					dba[db].findDBDot(line, 1);
-					dba[db].setActive();
+					//dba[db].enableActive();
 				}
 				count++;
 			}
@@ -152,10 +152,10 @@ int readSim(string fileName, danglingBonds dba[MaxDBS], string& bufferStart, str
 	}
 	else
 	{
-		cout << "> error! Invalid File \n";
+		std::cout << "> error! Invalid File \n";
 		return 0;
 	}
-	cout << "> Done!\n";
+	std::cout << "> Done!\n";
 	return db;
 }
 
@@ -207,8 +207,12 @@ int readList(string fileName, danglingBonds dba[], int dbamount, int *disturberA
 				}
 			}
 		}
+		std::cout << "> Done!\n";
 	}
-	cout << "> Done!\n";
+	else
+	{
+		std::cout << "> Error! Invalid File!\n";
+	}
 	return output;
 }
 
@@ -264,7 +268,7 @@ int createPermutations(danglingBonds dba[], string first, string second, int dbA
 		//cout << "\nThe all possible combination of length " << i << " for the given array set:\n";
 		Combi(combin, i, 0, 0, check, lenght, first, second, &next, fileName);
 	}
-	cout << "> Done!\n";
+	std::cout << "> Done!\n";
 	return 0;
 
 }
@@ -300,7 +304,7 @@ void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, stri
 	Combi(a, reqLen, s + 1, currLen, check, l, first, second, next, fileName);
 }
 
-void readResultFile(string fileName, danglingBonds dba[], int dbAmount)
+void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool fullResult)
 {
 	string line;
 	double *X = new double[dbAmount];
@@ -315,11 +319,12 @@ void readResultFile(string fileName, danglingBonds dba[], int dbAmount)
 	for (int x = 0; x < MaxDBS; x++)
 	{
 		dba[x].resetState();
+		dba[x].disableActive();
 	}
 	for (int x = 0; x < dbAmount; x++)
 	{
-		X[x] = 0;
-		Y[x] = 0;
+		X[x] = ForbiddenInfinity;
+		Y[x] = ForbiddenInfinity;
 	}
 	bool found = false;
 	int x,y;
@@ -343,7 +348,7 @@ void readResultFile(string fileName, danglingBonds dba[], int dbAmount)
 				//printf("What");
 				for (std::string::size_type i = 0; i < line.size(); ++i)
 				{
-					if (line[i] == 34)
+					if (line[i] == doubleQuotes)
 					{
 						found = !found;
 						x = 0;
@@ -380,8 +385,8 @@ void readResultFile(string fileName, danglingBonds dba[], int dbAmount)
 			if (elecFound)
 			{
 				int validRun = 1;
-				X[count] = 0;
-				Y[count] = 0;
+				//X[count] = 0;
+				//Y[count] = 0;
 				for (std::string::size_type i = 0; i < line.size(); ++i)
 				{
 					if (line[i] == '>' && validRun)
@@ -409,7 +414,7 @@ void readResultFile(string fileName, danglingBonds dba[], int dbAmount)
 
 						//cout << "distribution Energy: " << distribution.energy << " distribution count: " << distribution.count << " distribution valid:" << distribution.valid << " distribution state: " << distribution.state_count << " distribution coords: " << distribution.coordinates << '\n';
 					}
-					if (line[i] == 34)
+					if (line[i] == doubleQuotes)
 					{
 						//cout << line << '\n';
 						found = !found;
@@ -453,13 +458,14 @@ void readResultFile(string fileName, danglingBonds dba[], int dbAmount)
 						{
 							dba[x].setState();
 						}
+						dba[x].enableActive();
 					}
 				}
 			}
 		}
 		else
 		{
-			cout << " error! Invalid Configuration \n";
+			std::cout << " error! Invalid Configuration \n";
 		}
 
 		//cout << dba[0].getX() << ' ' << dba[0].getState() << '\n';
@@ -468,36 +474,99 @@ void readResultFile(string fileName, danglingBonds dba[], int dbAmount)
 		//cout << bufferStart << '\n' << bufferEnd;
 		//cout << "distribution Energy: " << distribution.energy << " distribution count: " << distribution.count << " distribution valid:" << distribution.valid << " distribution state: " << distribution.state_count << " distribution coords: " << distribution.coordinates << '\n';
 		ResultFile.close();
-		
+
+		// Basic Printing Process
+		printResult(dba, dbAmount, X, Y, fullResult);
 	}
 	else
 	{
-		cout << "> error! Invalid File \n";
+		std::cout << "> error! Invalid File \n";
 	}
+	
 	delete[] X;
 	delete[] Y;
 	return;
 }
 
-void printResult(danglingBonds dba[], int dbAmount)
+void printResult(danglingBonds dba[], int dbAmount, double *X, double *Y, bool fullResult)
 {
-	for (int x = 0; x < dbAmount; x++)
+	int x = 0;
+	for (x = 0; x < dbAmount; x++)
 	{
 		if (dba[x].getObserved() == 1)
 		{
 			if (dba[x].getState() == 0)
 			{
-				cout << "The observed DB is Neutral (Transparent)\n";
+				std::cout << "The observed DB is Neutral (Transparent)\n";
 			}
 			else
 			{
-				cout << "The observed DB is Negative (Blue)\n";
+				std::cout << "The observed DB is Negative (Blue)\n";
 			}
 		}
 	}
+
+	if(fullResult)
+	{
+		ofstream LOG;
+		int m;
+		int n;
+		int l;
+		x = 0;
+		int y = 0;
+		bool alreadyPrinted = false;
+		char canvas[maxCanvasX][maxCanvasY][maxCanvasLatice]; //-25 to 25
+		LOG.open("logfile.txt"); //Apenas salva um por vez, quero salvar TODOS de um Batch!.
+		for(int column = 0; column < maxCanvasX; column++)
+		{
+			for (int line = 0; line < maxCanvasY; line++)
+			{
+				for(int latice = 0; latice < maxCanvasLatice; latice++)
+				{
+					canvas[column][line][latice] = '.';
+				}
+			}
+		}
+
+		for(x = 0; x < dbAmount; x++)
+		{
+			if(dba[x].getActive())
+			{
+				if(dba[x].getState())
+				{
+					canvas[dba[x].getM() + (maxCanvasX/2)][dba[x].getN() + (maxCanvasY/2)][dba[x].getL()] = 'N';
+				}
+				else
+				{
+					canvas[dba[x].getM() + (maxCanvasX/2)][dba[x].getN() + (maxCanvasY/2)][dba[x].getL()] = 'O';
+				}
+			}
+			else
+			{
+				canvas[dba[x].getM() + (maxCanvasX/2)][dba[x].getN() + (maxCanvasY/2)][dba[x].getL()] = 'X';
+			}
+		}
+
+		for(int column = 0; column < maxCanvasX; column++)
+		{
+			for (int latice = 0; latice < maxCanvasLatice; latice++)
+			{
+				for(int line = 0; line < maxCanvasY; line++)
+				{
+					cout << canvas[column][line][latice] << ' ';
+					LOG << canvas[column][line][latice] << ' ';
+				}
+				cout << "\n";
+				LOG << '\n';
+			}
+			cout << "\n";
+			LOG << '\n';
+		}
+		std::cout << '\n';
+	}
 }
 
-void printFullResult(danglingBonds dba[], int dbAmount)
+void printFullResult(danglingBonds dba[], int dbAmount, bool fullResult)
 {
 	DIR *d;
     struct dirent *dir;
@@ -513,10 +582,9 @@ void printFullResult(danglingBonds dba[], int dbAmount)
             {
                 purefileName = dir->d_name;
 				filename = dir_output_xml + purefileName;
-                cout << filename << endl;
-				cout << "> File " << purefileName << ":\n";
-				readResultFile(filename, dba, dbAmount);
-				printResult(dba, dbAmount);
+                std::cout << filename << endl;
+				std::cout << "> File " << purefileName << ":\n";
+				readResultFile(filename, dba, dbAmount, fullResult);
             }
         }
     }
@@ -545,43 +613,9 @@ void callAnneal(int dbAmount)
                 command.append(filename);
                 command.append(" ");
                 command.append(outputname);
-				cout << "> Attempting to call command: " << command.c_str() << '\n';
+				std::cout << "> Attempting to call command: " << command.c_str() << '\n';
                 system(command.c_str());
             }
         }
     }
-}
-
-void printExtend(danglingBonds dba[], int dbAmount)
-{
-	int x = 0;
-	int n;
-	int m;
-
-	char canvas[50][50];
-	for(x = 0; x < dbAmount; x++)
-	{
-		n = dba[x].getN();
-		m = dba[x].getM();
-		
-	}
-
-	for(int column = -25; column < 25; column++)
-	{
-		if(x == 2)
-		{				
-			cout << "\n";
-			x = 0;
-		}
-		for(int line = -25; line < 25; line++)
-		{
-			if(x != 2)
-			{
-				cout << "* ";
-			}
-		}
-		cout << "\n";
-		x++;
-	}
-	cout << '\n';
 }

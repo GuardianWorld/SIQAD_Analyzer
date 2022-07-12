@@ -9,7 +9,7 @@ int main()
 	int buffer = 0;
 	int x = -1;
 	string miValue;
-	bool resultOutput = false;
+	bool fullResult = false;
 	int permsLoaded = 0;
 	int perms = 0;
 	int dbAmount = 0;
@@ -29,12 +29,19 @@ int main()
 
 	while (x != 0)
 	{
-		menu(resultOutput);
+		menu(fullResult);
 		cout << "> Option: \n>> ";
 		cin >> x;
 
 		switch(x)
 		{
+			case -1:
+				dbAmount = readSim(("./simulationFiles/AND.xml"), dba, bufferStart, bufferEnd);
+				permsLoaded = readList("./op/AND.txt", dba, dbAmount, dbd);
+				fullResult = true;
+				//readResultFile("./results/AND1.xml", dba, dbAmount, fullResult);
+
+			break;
 			case 1:
 				miValue = conversionText();
 				if(!noConversion)
@@ -76,8 +83,7 @@ int main()
 				else
 				{
 					fileName = singleResultsText();
-					readResultFile(fileName, dba, dbAmount);
-					printResult(dba, dbAmount);
+					readResultFile(fileName, dba, dbAmount, fullResult);
 				}
 			break;
 
@@ -86,15 +92,19 @@ int main()
 				{
 						cout << "> Error! Please verify if a Problem File and a Perturber File are loaded in memory!\n";
 				}
-				if(allResultsText())
+				else
 				{
-					printFullResult(dba, dbAmount);
+					if(allResultsText())
+					{
+						printFullResult(dba, dbAmount, fullResult);
+					}
 				}
 			break;
 			case 8:
 				{
-					//printExtend(dba, dbAmount);
+					fullResult = !fullResult;
 				}
+			break;
 			case 9:
 				for (int i = 0; i < dbAmount; i++)
 				{
@@ -102,41 +112,5 @@ int main()
 				}
 			break;
 		}
-		/*switch (x)
-		{
-
-		case 6:
-			if (dbAmount == 0 || permsLoaded == 0)
-			{
-				cout << "> Error! Please verify if a Problem File and a Perturber File are loaded in memory!\n";
-			}
-			else
-			{
-				cout << "> Are you sure you wanna execute the program?\n> This will read all the results from the results folder, make sure it's only from the current problem!\n";
-				cout << "> type the number of files to run, type 0 to return: ";
-				cin >> perms;
-				if (x > 0)
-				{
-
-					//execute;
-				}
-			}
-		break;
-		case 8:
-			for (int i = 0; i < dbAmount; i++)
-			{
-				cout << "> " << dba[i].getN() << ' ' << dba[i].getM() << ' ' << dba[i].getL() << ' ' << dba[i].getX() << ' ' << dba[i].getY() << ' ' << dba[i].getActive() << ' ' << dba[i].getDisturber() << ' ' << dba[i].getObserved() << ' ' << dba[i].getState() << '\n';
-			}
-		break;
-		default:
-			continue;
-		break;
-		}*/
-
-		/*for (int i = 0; i < dbAmount; i++)
-		{
-			cout << dba[i].getN() << ' ' << dba[i].getM() << ' ' << dba[i].getL() << ' ' << dba[i].getX() << ' ' << dba[i].getY() << ' ' << dba[i].getActive() << ' ' << dba[i].getDisturber() << ' ' << dba[i].getObserved() << ' ' << dba[i].getState() << '\n';
-		}*/
-		//cout << bufferStart << '\n' << bufferEnd;
 	}
 }

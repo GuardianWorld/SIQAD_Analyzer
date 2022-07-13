@@ -7,7 +7,7 @@ using namespace std;
 
 #define noConversion "999"
 
-void menu(bool resultOutput);
+void menu(bool resultOutput, bool advancedOptions);
 string conversionText();
 string loadSimText();
 string loadPerturberText();

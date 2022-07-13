@@ -167,8 +167,8 @@ int createPermutations(danglingBonds dba[], string first, string second, int dbA
 void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, string first, string second, int* next, string fileName);
 void removeSpaces(string &str);
 
-void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool fullResult);
-void printResult(danglingBonds dba[], int dbAmount, double *X, double *Y, bool fullResult);
+void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool fullResult, ofstream *LOG);
+void printResult(danglingBonds dba[], int dbAmount, double *X, double *Y, bool fullResult, ofstream *LOG, string filename);
 void callAnneal (int dbAmount);
 void printFullResult(danglingBonds dba[], int dbAmount, bool fullResult);
 void canvas(danglingBonds dba[], int dbAmount);

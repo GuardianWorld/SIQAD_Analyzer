@@ -2,27 +2,50 @@
 
 using namespace std;
 
-void menu(bool resultOutput)
+void menu(bool resultOutput, bool advancedOptions)
 {
 	string rO;
 	if (resultOutput) { rO = "(ON)  "; }
 	else { rO = "(OFF) "; }
-	cout << "  _________________________________________________ \n";
-	cout << " |                       Menu                      |\n";
-	cout << " |--------------------- Input ---------------------|\n";
-	cout << " |  1) Convert SQD folder to Simulation files      |\n"; //OK
-	cout << " |  2) Load into memory wanted simulation file     |\n"; //
-	cout << " |  3) Load list of perturbers for simulation file |\n";
-	cout << " |-------------------- Runtime --------------------|\n";
-	cout << " |  4) Make permutations of the loaded file        |\n";
-	cout << " |  5) Call Simanneal on all annealInput files     |\n";
-	cout << " |-------------------- Results --------------------|\n";
-	cout << " |  6) Read single result file                     |\n";
-	cout << " |  7) Read entire result folder                   |\n";
-	cout << " |  8) Print full result "+rO+"                    |\n";
-	cout << " |  9) Print DB situation                          |\n";
-	cout << " |  0) Quit                                        |\n";
-	cout << " |_________________________________________________|\n";
+	if(!advancedOptions)
+	{
+		cout << "  _________________________________________________ \n";
+		cout << " |                       Menu                      |\n";
+		cout << " | -1) Advanced Menu                               |\n";
+		cout << " |--------------------- Input ---------------------|\n";
+		cout << " |  1) Convert SQD folder to Simulation files      |\n"; 
+		cout << " |  2) Load into memory wanted simulation file     |\n"; 
+		cout << " |  3) Load list of perturbers for simulation file |\n";
+		cout << " |-------------------- Runtime --------------------|\n";
+		cout << " |  4) Make permutations of the loaded file        |\n";
+		cout << " |  5) Call Simanneal on all annealInput files     |\n";
+		cout << " |-------------------- Results --------------------|\n";
+		cout << " |  6) Read single result file                     |\n";
+		cout << " |  7) Read entire result folder                   |\n";
+		cout << " |  8) Print full result "+rO+"                    |\n";
+		cout << " |  9) Print DB situation                          |\n";
+		cout << " |  0) Quit                                        |\n";
+		cout << " |_________________________________________________|\n";
+	}
+	else
+	{
+		cout << "  _________________________________________________ _________________________________________________\n";
+		cout << " |                       Menu                      |                    Adv. Menu                    |\n";
+		cout << " |--------------------- Input ---------------------|--------------------- Batch ---------------------|\n";
+		cout << " |  1) Convert SQD folder to Simulation files      | 11) Batch mode for a single file                |\n"; 
+		cout << " |  2) Load into memory wanted simulation file     | 12) Batch mode for all files!  (WIP)            |\n"; 
+		cout << " |  3) Load list of perturbers for simulation file | -1) Normal Menu                                 |\n";                                            
+		cout << " |-------------------- Runtime --------------------|_________________________________________________|\n";
+		cout << " |  4) Make permutations of the loaded file        |\n";
+		cout << " |  5) Call Simanneal on all annealInput files     |\n";
+		cout << " |-------------------- Results --------------------|\n";
+		cout << " |  6) Read single result file                     |\n";
+		cout << " |  7) Read entire result folder                   |\n";
+		cout << " |  8) Print full result "+rO+"                    |\n";
+		cout << " |  9) Print DB situation                          |\n";
+		cout << " |  0) Quit                                        |\n";
+		cout << " |_________________________________________________|\n";
+	}
 }
 
 string conversionText()

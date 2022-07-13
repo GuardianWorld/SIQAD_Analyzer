@@ -1,4 +1,4 @@
-#include "MainFileManager.h"
+#include "../header/MainFileManager.h"
 
 int convertSQDtoSim(string miValue) //Function that will convert the .SQD to a .XML simulation.
 {

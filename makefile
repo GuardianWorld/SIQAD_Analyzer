@@ -1,2 +1,2 @@
 all:
-	g++ ./main.cpp ./MainFileManager.cpp ./menu.cpp -o siqan
+	g++ ./main.cpp ./origin/MainFileManager.cpp ./origin/menu.cpp -o siqan

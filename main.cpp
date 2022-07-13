@@ -1,7 +1,7 @@
 #include <iostream>
-#include "menu.h"
-#include "MainFileManager.h"
-#include "OSFileCorrector.h"
+#include "./header/menu.h"
+#include "./header/MainFileManager.h"
+#include "./header/OSFileCorrector.h"
 
 int main()
 {

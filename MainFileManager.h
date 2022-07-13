@@ -37,7 +37,7 @@
 #define INFINITY 9999999;
 
 #define maxCanvasX 30
-#define maxCanvasY 50
+#define maxCanvasY 95
 #define maxCanvasLatice 2
 
 

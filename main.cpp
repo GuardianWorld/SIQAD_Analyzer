@@ -42,7 +42,7 @@ int main()
 			break;
 			case 1:
 				miValue = conversionText();
-				if(!noConversion)
+				if(miValue != noConversion)
 				{
 					buffer = convertSQDtoSim(miValue);
 				}

@@ -7,8 +7,7 @@ void menu(bool resultOutput, bool advancedOptions)
 	string rO;
 	if (resultOutput) { rO = "(ON)  "; }
 	else { rO = "(OFF) "; }
-	if(!advancedOptions)
-	{
+	if(!advancedOptions){
 		cout << "  _________________________________________________ \n";
 		cout << " |                       Menu                      |\n";
 		cout << " | -1) Advanced Menu                               |\n";
@@ -27,8 +26,7 @@ void menu(bool resultOutput, bool advancedOptions)
 		cout << " |  0) Quit                                        |\n";
 		cout << " |_________________________________________________|\n";
 	}
-	else
-	{
+	else{
 		cout << "  _________________________________________________ _________________________________________________\n";
 		cout << " |                       Menu                      |                    Adv. Menu                    |\n";
 		cout << " |--------------------- Input ---------------------|--------------------- Batch ---------------------|\n";
@@ -56,16 +54,13 @@ string conversionText()
 	std::cout << "> The entire sqdInput folder will be converted into Simulation files. \n";
 	std::cout << "> Do you want to convert the entire folder? (y/n) >> ";
 	std::cin >> inputx;
-	if(inputx.compare("y") == 0 || inputx.compare("Y") == 0);
+	if(inputx.compare("y") == 0 || inputx.compare("Y") == 0)
 	{
 		std::cout << "> Please type the wanted value of Mi, or press enter to leave the default of -0.25 >> ";
 		//getchar(); // Here just so it can take the floating \n from Cin
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::getline(std::cin, valueMi);
-		if(valueMi.empty())
-		{
-			valueMi = "-0.25";
-		}
+		if(valueMi.empty())	{ valueMi = "-0.25"; }
 
 		return valueMi;
 	}
@@ -104,8 +99,7 @@ string loadPermutationText()
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cin >> y;
 
-	if(y.compare("y") == 0 || y.compare("Y") == 0)
-	{
+	if(y.compare("y") == 0 || y.compare("Y") == 0){
 		std::cout << "> What is the name for the permutation files?\n >> ";
 		std::cin >> y;
 		return y;
@@ -134,8 +128,7 @@ int allResultsText()
 	std::cout << "> [y/n]: ";
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cin >> y;
-	if(y.compare("y") == 0 || y.compare("Y"))
-	{
+	if(y.compare("y") == 0 || y.compare("Y")){
 		return 1;
 	}
 	return 0;

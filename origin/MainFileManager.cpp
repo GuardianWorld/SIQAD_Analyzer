@@ -55,16 +55,19 @@ int convertSQDtoSim(string miValue) //Function that will convert the .SQD to a .
                 //Converting from SQD to XML
 				finalFileBuffer.append(baseFileAux);
 				fptr = fopen(filename.c_str(), "r");
+				y = 0;
                 while(fgets(fileBuffer, 20000, fptr) != NULL)
                 {
                     if(y > 7)
                     {
+						//cout <<fileBuffer << y << endl;
                         finalFileBuffer.append(fileBuffer);
                     }
                     y++;
                 }
                 fclose(fptr);
                 finalFile.open(finalFileName);
+				//cout <<finalFileBuffer << endl;
                 finalFile << finalFileBuffer;
 				finalFile.close();
             }
@@ -211,11 +214,15 @@ int createPermutations(danglingBonds dba[], string first, string second, int dbA
 
 	SQDFile.open(output);
 	for (int x = 0; x < dbAmount; x++){
-		if (dba[x].getActive() && !dba[x].getDisturber()){first = first + dba[x].dotBuffer;}
+		if (!dba[x].getDisturber()){
+			first = first + dba[x].dotBuffer;
+		}
+	
 	}
 	SQDFile << first;
 	SQDFile << second;
-	//cout << second << '\n';
+	cout << first << '\n';
+	cout << second << '\n';
 	SQDFile.close();
 
 

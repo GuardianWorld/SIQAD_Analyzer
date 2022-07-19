@@ -221,8 +221,8 @@ int createPermutations(danglingBonds dba[], string first, string second, int dbA
 	}
 	SQDFile << first;
 	SQDFile << second;
-	cout << first << '\n';
-	cout << second << '\n';
+	//cout << first << '\n';
+	//cout << second << '\n';
 	SQDFile.close();
 
 

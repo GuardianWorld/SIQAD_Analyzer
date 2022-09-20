@@ -1,5 +1,5 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory '/home/gwlinux/Pastas/Code/Uni/IC/SIQAD_Analyzer'
-g++ ./main.cpp ./origin/MainFileManager.cpp ./origin/menu.cpp -o siqan
+g++ ./main.cpp ./origin/MainFileManager.cpp ./origin/RandomFileCreator.cpp ./origin/menu.cpp ./origin/Printer.cpp -o siqan
 make: Leaving directory '/home/gwlinux/Pastas/Code/Uni/IC/SIQAD_Analyzer'
  

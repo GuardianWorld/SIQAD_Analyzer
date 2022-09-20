@@ -23,8 +23,6 @@
 #include <cstdlib>
 #define OS 2
 
-#elif __APPLE__
-
 #endif
 
 
@@ -103,9 +101,9 @@ class danglingBonds {
 				}
 			}
 		}
-		int getN()	 { return n; }
-		int getM()	 { return m; }
-		int getL()	 { return l; }
+		int getN()	  { return n; }
+		int getM()	  { return m; }
+		int getL()	  { return l; }
 		double getX() { return X; }
 		double getY() { return Y; }
 
@@ -117,35 +115,19 @@ class danglingBonds {
 		}
 
 		void enableActive() { isActive = true; }
-		void disableActive() { isActive = false;}
-		bool getActive() 
-		{ 
-			return isActive;
-		}
+		void disableActive(){ isActive = false;}
+		bool getActive()	{ return isActive;	}
 		void setDisturber() { disturber = !disturber; }
-		bool getDisturber() 
-		{
-			return disturber;
-		}
+		bool getDisturber() { return disturber;		  }
 
 		void setObserver() { observed = !observed; }
-		bool getObserved() 
-		{ 
-			return observed;
-		}
+		bool getObserved() { return observed;      }
 
-		void setState() { negative = !negative; }
-		bool getState()
-		{
-			return negative;
-		}
-		void resetState()
-		{
-			negative = false;
-		}
+		void setState()  { negative = !negative; }
+		bool getState()	 { return negative;		}
+		void resetState(){	negative = false;	}
 
-		void initialize()
-		{
+		void initialize(){
 			n = 0;
 			m = 0;
 			l = 0;
@@ -169,7 +151,6 @@ void removeSpaces(string &str);
 
 void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool fullResult, ofstream *LOG);
 void printResult(danglingBonds dba[], int dbAmount, double *X, double *Y, bool fullResult, ofstream *LOG, string filename);
-void callAnneal (int dbAmount);
+void callAnneal (int dbAmount, bool supressAnneal);
 void printFullResult(danglingBonds dba[], int dbAmount, bool fullResult);
-void canvas(danglingBonds dba[], int dbAmount);
 

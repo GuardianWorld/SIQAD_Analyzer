@@ -1,15 +1,23 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 4.2.1
+ 
 # Built for x86_64-pc-linux-gnu
+ 
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
+ 
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+ 
 # This is free software: you are free to change and redistribute it.
+ 
 # There is NO WARRANTY, to the extent permitted by law.
  
 
-# Make data base, printed on Wed Jul 13 14:12:02 2022
+ 
+# Make data base, printed on Tue Sep 20 19:37:55 2022
+ 
 
 # Variables
+ 
 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
@@ -80,7 +88,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 XCURSOR_THEME = breeze_cursors
 # environment
-SESSION_MANAGER = local/gwlinux-Infoway-w7535:@/tmp/.ICE-unix/1070,unix/gwlinux-Infoway-w7535:/tmp/.ICE-unix/1070
+SESSION_MANAGER = local/gwlinux-Infoway-w7535:@/tmp/.ICE-unix/1053,unix/gwlinux-Infoway-w7535:/tmp/.ICE-unix/1053
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -94,7 +102,7 @@ LS_COLORS =
 # environment
 XDG_SESSION_DESKTOP = KDE
 # environment
-SSH_AUTH_SOCK = /tmp/ssh-x9a8oHJ9yaKU/agent.921
+SSH_AUTH_SOCK = /tmp/ssh-dAjKV8vBDHAG/agent.889
 # automatic
 %F = $(notdir $%)
 # environment
@@ -110,7 +118,7 @@ KDE_SESSION_VERSION = 5
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 1002
+SSH_AGENT_PID = 980
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = KDE
 # environment
@@ -124,7 +132,7 @@ VSCODE_CODE_CACHE_PATH = /home/gwlinux/.config/Code/CachedData/30d9c6cd9483b2cc5
 # environment
 LOGNAME = gwlinux
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # automatic
 +F = $(notdir $+)
 # environment
@@ -144,7 +152,7 @@ MAKECMDGOALS := all
 # environment
 SHLVL = 0
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-a1a5d77a-eb8a-4c4f-baac-6eb7f8686dcf.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-d884675c-346d-49bf-8083-0f65d51993b7.sock
 # environment
 XDG_SESSION_ID = 1
 # environment
@@ -181,7 +189,6 @@ PT8HOME = /opt/pt
 +D = $(patsubst %/,%,$(dir $+))
 # environment
 GDK_BACKEND = x11
- 
 # environment
 LC_PAPER = pt_BR.UTF-8
 # environment
@@ -215,7 +222,7 @@ LC_ADDRESS = pt_BR.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 2474
+VSCODE_PID = 17140
 # environment
 KDE_SESSION_UID = 1000
 # variable set hash-table stats:
@@ -227,9 +234,9 @@ KDE_SESSION_UID = 1000
 
 # Directories
 
-# . (device 2053, inode 4851886): 21 files, no impossibilities.
+# . (device 2053, inode 4851886): 20 files, no impossibilities.
 
-# 21 files, no impossibilities in 1 directories.
+# 20 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -262,9 +269,8 @@ all:
 # ? := 
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/11=9%
- 
 #  recipe to execute (from 'makefile', line 2):
-	g++ ./main.cpp ./origin/MainFileManager.cpp ./origin/menu.cpp -o siqan
+	g++ ./main.cpp ./origin/MainFileManager.cpp ./origin/RandomFileCreator.cpp ./origin/menu.cpp ./origin/Printer.cpp -o siqan
 
 # Not a target:
 .SUFFIXES:
@@ -275,7 +281,7 @@ all:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-13 14:11:50.700353169
+#  Last modified 2022-09-20 19:37:12.666502582
 #  File has been updated.
 #  Successfully updated.
 
@@ -293,12 +299,13 @@ makefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 26 / storage = 234 B / avg = 9 B
-# current buf: size = 8162 B / used = 234 B / count = 26 / avg = 9 B
+ 
+# strcache buffers: 1 (0) / strings = 25 / storage = 226 B / avg = 9 B
+# current buf: size = 8162 B / used = 226 B / count = 25 / avg = 9 B
 
-# strcache performance: lookups = 33 / hit rate = 21%
+# strcache performance: lookups = 32 / hit rate = 21%
 # hash-table stats:
-# Load=26/8192=0%, Rehash=0, Collisions=1/33=3%
-# Finished Make data base on Wed Jul 13 14:12:02 2022
+# Load=25/8192=0%, Rehash=0, Collisions=1/32=3%
+# Finished Make data base on Tue Sep 20 19:37:55 2022
 
  

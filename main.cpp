@@ -2,6 +2,7 @@
 #include "./header/menu.h"
 #include "./header/MainFileManager.h"
 #include "./header/OSFileCorrector.h"
+#include "./header/RandomFileCreator.h"
 
 int main()
 {
@@ -12,9 +13,11 @@ int main()
 	int perms = 0;
 	int dbAmount = 0;
 	int dbd[MaxDBS];
+	
 
 	bool fullResult = false;
-	bool advancedOptions = false;
+	bool advancedOptions = true;
+	bool supressAnneal = false;
 	// String Creation //
 	string fileName;
 	string bufferStart;
@@ -23,6 +26,11 @@ int main()
 	string miValue;
 	// Other Creation //
 	danglingBonds *dba = new danglingBonds[MaxDBS];
+	
+	
+	configurationFileRFC rfc;
+	rfc.configFileName();
+	rfc.changeWorkplace();
 
 	for (int y = 0; y < MaxDBS; y++)
 	{
@@ -31,12 +39,15 @@ int main()
 
 	while (x != 0)
 	{
-		menu(fullResult, advancedOptions);
+		menu(fullResult, advancedOptions, supressAnneal);
 		cout << "> Option: \n>> ";
 		cin >> x;
 
 		switch(x)
 		{
+			case -2:
+				supressAnneal = !supressAnneal;
+			break;
 			case -1:
 				advancedOptions = !advancedOptions;
 			break;
@@ -70,7 +81,7 @@ int main()
 
 			case 5:
 				annealCallText();
-				callAnneal(dbAmount);
+				callAnneal(dbAmount, supressAnneal);
 			break;
 
 			case 6:
@@ -118,6 +129,12 @@ int main()
 				permsLoaded = readList((dir_operations + fileName + ".txt") , dba, dbAmount, dbd);
 				if (dbAmount == 0 || permsLoaded == 0){	cout << "> Error! Please verify if a Problem File and a Perturber File are loaded in memory!\n"; break;	}
 				printFullResult(dba, dbAmount, fullResult);
+			break;
+			case 12:
+				rfc.changeWorkplace();
+			break;
+			case 14:
+				rfc.makeRandomization(dba);
 			break;
 		}
 	}

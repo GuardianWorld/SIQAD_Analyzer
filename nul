@@ -1,0 +1,28 @@
+Physeng invoked
+*** Argument Parsing ***
+In File: ./annealInput/HNAND0.xml
+Out File: ./results/HNAND0.xml
+External Potentials File: 
+
+*** Initiate SimAnneal interface ***
+Reading problem file: ./annealInput/HNAND0.xml
+Retrieving variables from SiQADConn...
+Retrieval from SiQADConn complete.
+
+*** Read Simulation parameters ***
+Retrieving variables from SiQADConn...
+Retrieval from SiQADConn complete.
+
+*** Invoke simulation ***
+
+*** Write simulation results ***
+Write results to XML...
+Write to XML complete.
+
+*** SimAnneal Complete ***
+Total Simulation
+	Wall time: 693.38 ms
+	CPU time: 2284.21 ms
+
+Write results to XML...
+Write to XML complete.

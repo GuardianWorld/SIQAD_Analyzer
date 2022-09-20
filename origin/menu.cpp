@@ -2,11 +2,16 @@
 
 using namespace std;
 
-void menu(bool resultOutput, bool advancedOptions)
+void menu(bool resultOutput, bool advancedOptions, bool supressAnneal)
 {
 	string rO;
+	string r1;
 	if (resultOutput) { rO = "(ON)  "; }
 	else { rO = "(OFF) "; }
+
+	if (supressAnneal) { r1 = "(ON)  "; }
+	else { r1 = "(OFF) "; }
+
 	if(!advancedOptions){
 		cout << "  _________________________________________________ \n";
 		cout << " |                       Menu                      |\n";
@@ -32,17 +37,17 @@ void menu(bool resultOutput, bool advancedOptions)
 		cout << " |--------------------- Input ---------------------|--------------------- Batch ---------------------|\n";
 		cout << " |  1) Convert SQD folder to Simulation files      | 11) Batch mode for a single file                |\n"; 
 		cout << " |  2) Load into memory wanted simulation file     | 12) Batch mode for all files!  (WIP)            |\n"; 
-		cout << " |  3) Load list of perturbers for simulation file | -1) Normal Menu                                 |\n";                                            
-		cout << " |-------------------- Runtime --------------------|_________________________________________________|\n";
-		cout << " |  4) Make permutations of the loaded file        |\n";
-		cout << " |  5) Call Simanneal on all annealInput files     |\n";
-		cout << " |-------------------- Results --------------------|\n";
-		cout << " |  6) Read single result file                     |\n";
-		cout << " |  7) Read entire result folder                   |\n";
-		cout << " |  8) Print full result "+rO+"                    |\n";
-		cout << " |  9) Print DB situation                          |\n";
-		cout << " |  0) Quit                                        |\n";
-		cout << " |_________________________________________________|\n";
+		cout << " |  3) Load list of perturbers for simulation file | 13) Configurate Randomizer                      |\n";                                            
+		cout << " |-------------------- Runtime --------------------| 14) Start Randomization                         |\n";
+		cout << " |  4) Make permutations of the loaded file        |                                                 |\n";
+		cout << " |  5) Call Simanneal on all annealInput files     |                                                 |\n";
+		cout << " |-------------------- Results --------------------|                                                 |\n";
+		cout << " |  6) Read single result file                     |                                                 |\n";
+		cout << " |  7) Read entire result folder                   |                                                 |\n";
+		cout << " |  8) Print full result "+rO+"                    |                                                 |\n";
+		cout << " |  9) Print DB situation                          | -1) Normal Menu                                 |\n";
+		cout << " |  0) Quit                                        | -2) Supress Anneal  "+r1+"                      |\n";
+		cout << " |_________________________________________________|_________________________________________________|\n";
 	}
 }
 

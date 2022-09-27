@@ -26,7 +26,7 @@ class configurationFileRFC{
     public:
     void configFileName();
     void changeWorkplace();
-    void makeRandomization(danglingBonds dba[]);
+    void makeRandomization(danglingBonds dba[], int dbAmount);
 
 };
 

@@ -1,23 +1,14 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 4.2.1
- 
 # Built for x86_64-pc-linux-gnu
- 
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
- 
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
- 
 # This is free software: you are free to change and redistribute it.
- 
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
- 
-# Make data base, printed on Tue Sep 20 19:37:55 2022
- 
+# Make data base, printed on Mon Sep 26 15:11:57 2022
 
 # Variables
- 
 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
@@ -88,7 +79,7 @@ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 XCURSOR_THEME = breeze_cursors
 # environment
-SESSION_MANAGER = local/gwlinux-Infoway-w7535:@/tmp/.ICE-unix/1053,unix/gwlinux-Infoway-w7535:/tmp/.ICE-unix/1053
+SESSION_MANAGER = local/gwlinux-Infoway-w7535:@/tmp/.ICE-unix/1980,unix/gwlinux-Infoway-w7535:/tmp/.ICE-unix/1980
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -102,7 +93,7 @@ LS_COLORS =
 # environment
 XDG_SESSION_DESKTOP = KDE
 # environment
-SSH_AUTH_SOCK = /tmp/ssh-dAjKV8vBDHAG/agent.889
+SSH_AUTH_SOCK = /tmp/ssh-vJV7EcBRoxCv/agent.892
 # automatic
 %F = $(notdir $%)
 # environment
@@ -118,7 +109,7 @@ KDE_SESSION_VERSION = 5
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 980
+SSH_AGENT_PID = 1025
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = KDE
 # environment
@@ -152,7 +143,7 @@ MAKECMDGOALS := all
 # environment
 SHLVL = 0
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-d884675c-346d-49bf-8083-0f65d51993b7.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-1a083313-13cb-47c4-9347-b666b929facf.sock
 # environment
 XDG_SESSION_ID = 1
 # environment
@@ -222,7 +213,7 @@ LC_ADDRESS = pt_BR.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 17140
+VSCODE_PID = 2596
 # environment
 KDE_SESSION_UID = 1000
 # variable set hash-table stats:
@@ -234,9 +225,9 @@ KDE_SESSION_UID = 1000
 
 # Directories
 
-# . (device 2053, inode 4851886): 20 files, no impossibilities.
+# . (device 2053, inode 4851886): 21 files, no impossibilities.
 
-# 20 files, no impossibilities in 1 directories.
+# 21 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -292,6 +283,7 @@ makefile:
 #  File has not been updated.
 
 # files hash-table stats:
+ 
 # Load=4/1024=0%, Rehash=0, Collisions=0/16=0%
 # VPATH Search Paths
 
@@ -299,13 +291,12 @@ makefile:
 
 # No general ('VPATH' variable) search path.
 
- 
-# strcache buffers: 1 (0) / strings = 25 / storage = 226 B / avg = 9 B
-# current buf: size = 8162 B / used = 226 B / count = 25 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 26 / storage = 230 B / avg = 8 B
+# current buf: size = 8162 B / used = 230 B / count = 26 / avg = 8 B
 
-# strcache performance: lookups = 32 / hit rate = 21%
+# strcache performance: lookups = 33 / hit rate = 21%
 # hash-table stats:
-# Load=25/8192=0%, Rehash=0, Collisions=1/32=3%
-# Finished Make data base on Tue Sep 20 19:37:55 2022
+# Load=26/8192=0%, Rehash=0, Collisions=1/33=3%
+# Finished Make data base on Mon Sep 26 15:11:57 2022
 
  

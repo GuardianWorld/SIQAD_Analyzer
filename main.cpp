@@ -45,83 +45,81 @@ int main()
 
 		switch(x)
 		{
-			case -2:
+			case -2: //Supresses the SimAnneal prints with >Nul
 				supressAnneal = !supressAnneal;
 			break;
-			case -1:
+
+			case -1: //Deactivates/Activates de Advanced Menu.
 				advancedOptions = !advancedOptions;
 			break;
-			case 1:
-				miValue = conversionText();
-				if(miValue != noConversion)
-				{
+
+			case 1: //Converts SQD files in the SQD Folder to Simulation Files
+				miValue = conversionText();											//Gets the wanted value of MI, default is 0.25.
+				if(miValue != noConversion){
 					buffer = convertSQDtoSim(miValue);
 				}
 			break;
 
-			case 2:
-				fileName = loadSimText();
-				dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
+			case 2: //Loads into memory the wanted Simulation file
+				fileName = loadSimText();											//Gets the filename to load the wanted file;
+				dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);			//Reads the Simulation file, and inserts the corresponding DBs in memory.
 			//dbAmount = readSim((dir_simulation + loadSimText() + ".xml"), dba, bufferStart, bufferEnd);
 			break;
 
-			case 3:
-				if (dbAmount == 0) { cout << "Invalid, load XML first. \n"; break; }
-				fileName = loadPerturberText();
-				permsLoaded = readList(fileName, dba, dbAmount, dbd);
+			case 3: //Loads a list of perturbers to be inserted into the loaded simulation file in memory. Sets its variables.
+				if (dbAmount == 0) { 
+					cout << "Invalid, load XML first. \n"; 
+					break; 
+				} 
+				fileName = loadPerturberText();										//Gets the filename to load the wanted file;
+				permsLoaded = readList(fileName, dba, dbAmount, dbd);				//Read the list of perturbers and set in memory.
 			break;
 
-			case 4:
+			case 4:	// Makes permutations with the loaded file.
 				perName = loadPermutationText();
-				if (perName.compare("0") != 0)
-				{
+				if (perName.compare("0") != 0){
 					createPermutations(dba, bufferStart, bufferEnd, dbAmount, perName);
 				}
 			break;
 
-			case 5:
+			case 5: // Call the SimAnneal plugin to simulate all files.
 				annealCallText();
 				callAnneal(dbAmount, supressAnneal);
 			break;
 
-			case 6:
-				if (dbAmount == 0 || permsLoaded == 0)
-				{
+			case 6:	// Read a single result file.
+				if (dbAmount == 0 || permsLoaded == 0){
 					cout << "> Error! Please verify if a Problem File and a Perturber File are loaded in memory!\n";
 				}
-				else
-				{
+				else{
 					fileName = singleResultsText();
 					readResultFile(fileName, dba, dbAmount, fullResult, NULL);
 				}
 			break;
 
-			case 7:
-				if (dbAmount == 0 || permsLoaded == 0)
-				{
+			case 7: // Read the entire result folder.
+				if (dbAmount == 0 || permsLoaded == 0){
 						cout << "> Error! Please verify if a Problem File and a Perturber File are loaded in memory!\n";
 				}
 				else
 				{
-					if(allResultsText())
-					{
+					if(allResultsText()){
 						printFullResult(dba, dbAmount, fullResult);
 					}
 				}
 			break;
-			case 8:
-				{
-					fullResult = !fullResult;
-				}
+
+			case 8:	// Toggles the Full Result option.	
+				fullResult = !fullResult;		
 			break;
-			case 9:
-				for (int i = 0; i < dbAmount; i++)
-				{
+
+			case 9: // Prints the DB situation.
+				for (int i = 0; i < dbAmount; i++){ 
 				cout << "> " << dba[i].getN() << ' ' << dba[i].getM() << ' ' << dba[i].getL() << ' ' << dba[i].getX() << ' ' << dba[i].getY() << ' ' << dba[i].getActive() << ' ' << dba[i].getDisturber() << ' ' << dba[i].getObserved() << ' ' << dba[i].getState() << '\n';
 				}
 			break;
 
-			case 11:
+			case 11: //Batch for a single file, currently WIP.
 				std::cout << "> Digit the filename for Batch! Make sure the results folder is empty!\n >> ";
 				std::cin >> fileName;
 				dbAmount = readSim((dir_simulation + fileName + ".xml"), dba, bufferStart, bufferEnd);
@@ -130,11 +128,16 @@ int main()
 				if (dbAmount == 0 || permsLoaded == 0){	cout << "> Error! Please verify if a Problem File and a Perturber File are loaded in memory!\n"; break;	}
 				printFullResult(dba, dbAmount, fullResult);
 			break;
-			case 12:
+			case 12: //Batch to multiple files, currently not in progress ;-;
+				
+			break;
+			case 13: //Configurate the Randomizer, currently WIP.
 				rfc.changeWorkplace();
 			break;
-			case 14:
-				rfc.makeRandomization(dba);
+			case 14: //Starts the Randomization, currently WIP.
+				fileName = "./simulationFiles/Hexagon31.xml";
+				dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
+				rfc.makeRandomization(dba, dbAmount);
 			break;
 		}
 	}

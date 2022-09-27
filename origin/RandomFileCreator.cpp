@@ -48,7 +48,7 @@ void configurationFileRFC::changeWorkplace(){
     return;
 }
 
-void configurationFileRFC::makeRandomization(danglingBonds dba[]){
+void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount){
     cout << mi << endl;
     cout << minX << endl;
     cout << maxX << endl;
@@ -58,7 +58,36 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[]){
     cout << divideX << endl;
     cout << divideY << endl;
     cout << valid << endl;
+    char toCanvas;
 
-    
+    ofstream LOG;
+	LOG.open("hexTest.txt");
+    //Place . on Canvas;
+    char canvas[maxCanvasX][maxCanvasY][maxCanvasLatice];
+    for(int column = 0; column < maxCanvasX; column++){			
+		for (int line = 0; line < maxCanvasY; line++){
+			for(int latice = 0; latice < maxCanvasLatice; latice++)
+			{ canvas[column][line][latice] = '.'; }
+		}
+	}
 
+	for(int x = 0; x < dbAmount; x++){			
+		if(dba[x].getActive()){
+			toCanvas = 'A';
+		}
+		else{toCanvas = 'O';}
+		canvas[dba[x].getM() + (maxCanvasX/2)][dba[x].getN() + (maxCanvasY/2)][dba[x].getL()] = toCanvas;
+    }
+    for(int column = 0; column < maxCanvasX; column++){
+			for (int latice = 0; latice < maxCanvasLatice; latice++){
+				for(int line = 0; line < maxCanvasY; line++){
+					LOG << canvas[column][line][latice] << ' ';
+				}
+				LOG << '\n';
+			}
+			LOG << '\n';
+    }
+    for(int x = 0; x < dbAmount; x++){
+        dba[x].findXY();
+    }
 }

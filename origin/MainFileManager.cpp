@@ -1,5 +1,49 @@
 #include "../header/MainFileManager.h"
 
+void danglingBonds::findDBDot(string str, int mode)
+{
+	int x = 0, y = 0;
+	char aux[20] = { 0 };
+	bool found = false;
+
+	isActive = false;
+	disturber = false;
+	observed = false;
+
+	if(mode == 1){
+		this->findXY();
+		return;
+	}
+
+	for (std::string::size_type i = 0; i < str.size(); ++i){
+		if (str[i] == doubleQuotes){
+			found = !found; //Found becomes TRUE;
+			x = 0;
+			if (aux[0] != 0){
+				if (mode == 0){
+					if (y == 0)		 { n = atoi(aux); }
+					else if (y == 1) { m = atoi(aux); }
+					else if (y == 2) { l = atoi(aux); }
+				}
+				else{	
+					/*I can substitute this method of getting the LINE and going trough hell with simply changing the MODE = 1 to call FINDXY, since 
+					 * The formula is so easy now.
+					*/
+					//if (y == 0)		 { X = atof(aux); }
+					//else if (y == 1) { Y = atof(aux); }
+				}
+				y++;
+			}
+			memset(aux, 0, sizeof(aux));
+		}
+		else if (found){
+			aux[x] = str[i];
+			x++;
+		}
+	}
+}
+
+
 int convertSQDtoSim(string miValue) //Function that will convert the .SQD to a .XML simulation.
 {
 	//Variables
@@ -430,4 +474,9 @@ void callAnneal(int dbAmount, bool supressAnneal)
             }
         }
     }
+}
+
+void danglingBonds::findXY(){ 
+	this->X = this->n * 3.84;
+	this->Y = (this->m * 7.68) + (this->l * 2.25);
 }

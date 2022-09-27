@@ -47,6 +47,11 @@ typedef struct elecDist {
 	char coordinates[MaxDBS] = { 0 };
 }elecDist;
 
+/** Main class for Dangling Bonds
+ * Stores the N M L and X Y positions of a dangling bond, as well as some values.
+ * Has the main GET and SET functions, as well as the main FINDDBDOT function.
+ * 
+ */
 class danglingBonds {
 	private:
 		int n = 0;
@@ -61,46 +66,14 @@ class danglingBonds {
 	public:
 		string dotBuffer;
 
-		void findDBDot(string str, int mode)
-		{
-			int x = 0, y = 0;
-			char aux[20] = { 0 };
-			bool found = false;
+		/**
+		 * @brief Reads a line, acquired from another function, and assigns values to a DB. Should not be called by itself.
+		 * 
+		 * @param str line obtained from another function. 
+		 * @param mode Assigned 0 for when finding N M L positions from a file, and 1 for assigning the X Y position from a formula.
+		 */
+		void findDBDot(string str, int mode);
 
-			isActive = false;
-			disturber = false;
-			observed = false;
-
-			for (std::string::size_type i = 0; i < str.size(); ++i)
-			{
-				if (str[i] == doubleQuotes)
-				{
-					found = !found;
-					x = 0;
-					if (aux[0] != 0)
-					{
-						if (mode == 0)
-						{
-							if (y == 0)		 { n = atoi(aux); }
-							else if (y == 1) { m = atoi(aux); }
-							else if (y == 2) { l = atoi(aux); }
-						}
-						else
-						{
-							if (y == 0)		 { X = atof(aux); }
-							else if (y == 1) { Y = atof(aux); }
-						}
-						y++;
-					}
-					memset(aux, 0, sizeof(aux));
-				}
-				else if (found)
-				{
-					aux[x] = str[i];
-					x++;
-				}
-			}
-		}
 		int getN()	  { return n; }
 		int getM()	  { return m; }
 		int getL()	  { return l; }
@@ -126,6 +99,8 @@ class danglingBonds {
 		void setState()  { negative = !negative; }
 		bool getState()	 { return negative;		}
 		void resetState(){	negative = false;	}
+
+		void findXY();
 
 		void initialize(){
 			n = 0;

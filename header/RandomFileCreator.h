@@ -11,12 +11,14 @@
 class configurationFileRFC{
     private:
     string workingFileName;
-    int minX;
-    int maxX;
-    int minY;
-    int maxY;
-    int maxDBs;
     float mi;
+    int minN;
+    int maxN;
+    int latticeMin;
+    int minM;
+    int maxM;
+    int latticeMax;
+    int maxDBs;
     int divideX;
     int divideY;
     bool valid;

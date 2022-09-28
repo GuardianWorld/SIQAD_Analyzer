@@ -65,7 +65,18 @@ class danglingBonds {
 		bool negative = false;
 	public:
 		string dotBuffer;
-
+		danglingBonds(){
+			n = 0;
+			m = 0;
+			l = 0;
+			X = 0;
+			Y = 0;
+			isActive = false;
+			disturber = false;
+			observed = false;
+			negative = false;
+			dotBuffer.clear();
+		}
 		/**
 		 * @brief Reads a line, acquired from another function, and assigns values to a DB. Should not be called by itself.
 		 * 
@@ -102,7 +113,7 @@ class danglingBonds {
 
 		void findXY();
 
-		void initialize(){
+		void cleanDBs(){
 			n = 0;
 			m = 0;
 			l = 0;

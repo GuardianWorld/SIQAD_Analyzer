@@ -129,7 +129,7 @@ int readSim(string fileName, danglingBonds dba[MaxDBS], string& bufferStart, str
 	bufferStart.clear();
 	bufferEnd.clear();
 	
-	for (int y = 0; y < MaxDBS; y++) {dba[y].initialize();}
+	for (int y = 0; y < MaxDBS; y++) {dba[y].cleanDBs();}
 
 	int count;
 	int db = 0;

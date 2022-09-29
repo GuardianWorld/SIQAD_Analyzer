@@ -111,6 +111,14 @@ class danglingBonds {
 		bool getState()	 { return negative;		}
 		void resetState(){	negative = false;	}
 
+		void setDB(int N, int M, int L){
+			cleanDBs();
+			n = N;
+			m = M;
+			l = L;
+			findXY();
+			isActive = true;
+		}
 		void findXY();
 
 		void cleanDBs(){

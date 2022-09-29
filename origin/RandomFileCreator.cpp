@@ -41,7 +41,8 @@ void configurationFileRFC::changeWorkplace(){
                 case 6: latticeMax = std::stoi(aux);  break;
                 case 7: maxDBs = std::stoi(aux);    break;
                 case 8: divideX = std::stoi(aux);   break;
-                case 9: divideY = std::stoi(aux); 
+                case 9: divideY = std::stoi(aux); break;
+                case 10: interactions = std::stoi(aux);
                         valid = true;
                         return; 
            }
@@ -53,7 +54,7 @@ void configurationFileRFC::changeWorkplace(){
 }
 
 void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount){    
-    /*cout << mi << endl;
+    cout << mi << endl;
     cout << minN << endl;
     cout << maxN << endl;
     cout << minM << endl;
@@ -61,7 +62,14 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount){
     cout << maxDBs << endl;
     cout << divideX << endl;
     cout << divideY << endl;
-    cout << valid << endl;*/
+    cout << valid << endl;
+    cout << interactions << endl;
+
+    int N, M, L;
+    int absOfN = maxN - minN;
+    int absOfM = maxM - minM; 
+    int x;
+    int randomNumber = 0;
     char toCanvas;
     int extraDBs = 0;
 
@@ -88,22 +96,35 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount){
 
     //Make While loop for randomization
     
-    canvas[minM + (maxCanvasX/2)][minN + (maxCanvasY/2)][latticeMin] = 'T';
-    canvas[minM + (maxCanvasX/2)][maxN + (maxCanvasY/2)][latticeMin] = 'T';
-    canvas[maxM + (maxCanvasX/2)][minN + (maxCanvasY/2)][latticeMax] = 'T';
-    canvas[maxM + (maxCanvasX/2)][maxN + (maxCanvasY/2)][latticeMax] = 'T';
+    canvas[minM + (maxCanvasX/2)][minN + (maxCanvasY/2)][latticeMin] = 'B';
+    canvas[minM + (maxCanvasX/2)][maxN + (maxCanvasY/2)][latticeMin] = 'B';
+    canvas[maxM + (maxCanvasX/2)][minN + (maxCanvasY/2)][latticeMax] = 'B';
+    canvas[maxM + (maxCanvasX/2)][maxN + (maxCanvasY/2)][latticeMax] = 'B';
+    while(x < interactions){
+        extraDBs = 0;
+        while(extraDBs != maxDBs){//Make random calls, place DBs following certain rules.
+            N = (rand() % absOfN) + minN; // -2 to 6
+            M = (rand() % absOfM) + minM;
+            L = (rand() % 2);
+            cout << "N: " << N << '\n' << "M: " << M << '\n' << "L: " << L << '\n';
 
-    /*while(extraDBs != maxDBs){
-        int M;
-        int N;
-        int L;
-        cin >> M;
-        cin >> N;
-        cin >> L;
-        canvas[M + (maxCanvasX/2)][N + (maxCanvasY/2)][L] = 'T';
-        extraDBs = maxDBs;
-    }*/
-
+            /*dba[dbAmount].setDB(N, M, L);
+            toCanvas = 'P';
+            canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = toCanvas;*/
+            extraDBs++;
+        }
+        
+        /*for(int column = 0; column < maxCanvasX; column++){
+			for (int latice = 0; latice < maxCanvasLatice; latice++){
+				for(int line = 0; line < maxCanvasY; line++){
+					LOG << canvas[column][line][latice] << ' ';
+				}
+				LOG << '\n';
+			}
+			LOG << '\n';
+        }*/
+        x++;
+    }
 
     // Print Canvas.
     for(int column = 0; column < maxCanvasX; column++){
@@ -115,9 +136,5 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount){
 			}
 			LOG << '\n';
     }
-    for(int x = 0; x < dbAmount; x++){
-        dba[x].findXY();
-    }
-
     
 }

@@ -22,6 +22,7 @@ class configurationFileRFC{
     int divideX;
     int divideY;
     bool valid;
+    int interactions;
 
 
 

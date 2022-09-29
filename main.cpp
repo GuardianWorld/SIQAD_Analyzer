@@ -135,6 +135,7 @@ int main()
 				rfc.changeWorkplace();
 			break;
 			case 14: //Starts the Randomization, currently WIP.
+				srand(42);
 				fileName = "./simulationFiles/Hexagon31.xml";
 				dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
 				rfc.makeRandomization(dba, dbAmount);

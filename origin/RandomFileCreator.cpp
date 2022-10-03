@@ -96,25 +96,54 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount){
 
     //Make While loop for randomization
     
-    canvas[minM + (maxCanvasX/2)][minN + (maxCanvasY/2)][latticeMin] = 'B';
+    /*canvas[minM + (maxCanvasX/2)][minN + (maxCanvasY/2)][latticeMin] = 'B';
     canvas[minM + (maxCanvasX/2)][maxN + (maxCanvasY/2)][latticeMin] = 'B';
     canvas[maxM + (maxCanvasX/2)][minN + (maxCanvasY/2)][latticeMax] = 'B';
-    canvas[maxM + (maxCanvasX/2)][maxN + (maxCanvasY/2)][latticeMax] = 'B';
+    canvas[maxM + (maxCanvasX/2)][maxN + (maxCanvasY/2)][latticeMax] = 'B';*/
     while(x < interactions){
         extraDBs = 0;
         while(extraDBs != maxDBs){//Make random calls, place DBs following certain rules.
-            N = (rand() % absOfN) + minN; // -2 to 6
-            M = (rand() % absOfM) + minM;
+            //Call NML positions randomly.
+            N = (rand() % (absOfN + 1)) + minN; // -2 to 6
+            M = (rand() % (absOfM + 1)) + minM;
             L = (rand() % 2);
-            cout << "N: " << N << '\n' << "M: " << M << '\n' << "L: " << L << '\n';
+            //Apply Rules:
+            //Rule One: The current spot cannot be ocuppied.
+            if(canvas[M + (maxCanvasX/2)][N + (maxCanvasY/2)][L] == '.')
+            {
+                //Apply DBs:
+                cout << "Int: " << x <<"/" << interactions << " N: " << N << " M: " << M << " L: " << L << '\n';           
+                dba[dbAmount + extraDBs].setDB(N, M, L);
+                toCanvas = 'P';
+                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = toCanvas;
+                //Rule Two: A 3x3 area is interdicted.
+                canvas[dba[dbAmount + extraDBs].getM() - 1 + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + 1 + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
+            }
+            //Rule Two: A 3x3 area is interdicted.
+            
 
-            /*dba[dbAmount].setDB(N, M, L);
+
+            //Apply DBs:
+            cout << "Int: " << x <<"/" << interactions << " N: " << N << " M: " << M << " L: " << L << '\n';           
+            dba[dbAmount + extraDBs].setDB(N, M, L);
             toCanvas = 'P';
-            canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = toCanvas;*/
+            canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = toCanvas;
             extraDBs++;
+            //cout << "clear\n " << dba[dbAmount + extraDBs].getM() << " " << dba[dbAmount + extraDBs].getN() << " " << dba[dbAmount + extraDBs].getL() << "\n";
         }
-        
-        /*for(int column = 0; column < maxCanvasX; column++){
+        cout << "Test ---\n";
+
+       
+
+        for(int column = 0; column < maxCanvasX; column++){
 			for (int latice = 0; latice < maxCanvasLatice; latice++){
 				for(int line = 0; line < maxCanvasY; line++){
 					LOG << canvas[column][line][latice] << ' ';
@@ -122,12 +151,16 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount){
 				LOG << '\n';
 			}
 			LOG << '\n';
-        }*/
+        }
         x++;
+        //Clear canvas quickly.
+         for(int h = 0; h < maxDBs; h++){
+            canvas[dba[dbAmount + h].getM() + (maxCanvasX/2)][dba[dbAmount + h].getN() + (maxCanvasY/2)][dba[dbAmount + h].getL()] = '.';
+        }
     }
 
     // Print Canvas.
-    for(int column = 0; column < maxCanvasX; column++){
+    /*for(int column = 0; column < maxCanvasX; column++){
 			for (int latice = 0; latice < maxCanvasLatice; latice++){
 				for(int line = 0; line < maxCanvasY; line++){
 					LOG << canvas[column][line][latice] << ' ';
@@ -136,5 +169,7 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount){
 			}
 			LOG << '\n';
     }
+    */
+    LOG.close();
     
 }

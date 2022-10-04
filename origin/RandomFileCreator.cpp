@@ -53,26 +53,27 @@ void configurationFileRFC::changeWorkplace(){
     return;
 }
 
-void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount){    
-    cout << mi << endl;
-    cout << minN << endl;
-    cout << maxN << endl;
-    cout << minM << endl;
-    cout << maxM << endl;  
-    cout << maxDBs << endl;
-    cout << divideX << endl;
-    cout << divideY << endl;
-    cout << valid << endl;
-    cout << interactions << endl;
+void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, int* randomCalls){    
+    std::cout << mi << endl;
+    std::cout << minN << endl;
+    std::cout << maxN << endl;
+    std::cout << minM << endl;
+    std::cout << maxM << endl;  
+    std::cout << maxDBs << endl;
+    std::cout << divideX << endl;
+    std::cout << divideY << endl;
+    std::cout << valid << endl;
+    std::cout << interactions << endl;
 
     int N, M, L;
     int absOfN = maxN - minN;
     int absOfM = maxM - minM; 
-    int x;
+    int x = 0;
     int randomNumber = 0;
     char toCanvas;
     int extraDBs = 0;
-
+    int addToM;
+    int newL;
 
     ofstream LOG;
 	LOG.open("hexTest.txt");
@@ -85,21 +86,29 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount){
 		}
 	}
     //Initialize Canvas.
-	for(int x = 0; x < dbAmount; x++){			
+	for(int k = 0; k < dbAmount; k++){			
 		/*if(dba[x].getActive()){
 			toCanvas = 'A';
 		}
 		else{toCanvas = 'O';}*/
         toCanvas = 'O';
-		canvas[dba[x].getM() + (maxCanvasX/2)][dba[x].getN() + (maxCanvasY/2)][dba[x].getL()] = toCanvas;
+		canvas[dba[k].getM() + halfCanvasX][dba[k].getN() + halfCanvasY][dba[k].getL()] = toCanvas;
+    }
+
+    //Initialize Seed.
+    for(int k = 0; k < *randomCalls; k += 3){
+        N = (rand() % (absOfN + 1)) + minN; // -2 to 6
+        M = (rand() % (absOfM + 1)) + minM;
+        L = (rand() % 2);
     }
 
     //Make While loop for randomization
     
-    /*canvas[minM + (maxCanvasX/2)][minN + (maxCanvasY/2)][latticeMin] = 'B';
-    canvas[minM + (maxCanvasX/2)][maxN + (maxCanvasY/2)][latticeMin] = 'B';
-    canvas[maxM + (maxCanvasX/2)][minN + (maxCanvasY/2)][latticeMax] = 'B';
-    canvas[maxM + (maxCanvasX/2)][maxN + (maxCanvasY/2)][latticeMax] = 'B';*/
+    /*canvas[minM + halfCanvasX][minN + halfCanvasY][latticeMin] = 'B';
+    canvas[minM + halfCanvasX][maxN + halfCanvasY][latticeMin] = 'B';
+    canvas[maxM + halfCanvasX][minN + halfCanvasY][latticeMax] = 'B';
+    canvas[maxM + halfCanvasX][maxN + halfCanvasY][latticeMax] = 'B';*/
+    std::cout << x << "\n" <<interactions << "\n";
     while(x < interactions){
         extraDBs = 0;
         while(extraDBs != maxDBs){//Make random calls, place DBs following certain rules.
@@ -109,40 +118,48 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount){
             L = (rand() % 2);
             //Apply Rules:
             //Rule One: The current spot cannot be ocuppied.
-            if(canvas[M + (maxCanvasX/2)][N + (maxCanvasY/2)][L] == '.')
+            if(canvas[M + halfCanvasX][N + halfCanvasY][L] == '.')
             {
                 //Apply DBs:
-                cout << "Int: " << x <<"/" << interactions << " N: " << N << " M: " << M << " L: " << L << '\n';           
+                //std::cout << "Int: " << x <<"/" << interactions << " N: " << N << " M: " << M << " L: " << L << '\n';           
                 dba[dbAmount + extraDBs].setDB(N, M, L);
                 toCanvas = 'P';
-                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = toCanvas;
+                canvas[M + halfCanvasX][N + halfCanvasY][L] = toCanvas;
+                //canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = toCanvas;
                 //Rule Two: A 3x3 area is interdicted.
-                canvas[dba[dbAmount + extraDBs].getM() - 1 + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + 1 + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = 'x';
+                if(L == 0){ //Can only fill his own Lattice 1, and the upper neighbor Lattice 1;
+                    newL = 1;
+                    addToM = -1;
+                }
+                else{ // Can only fill his own lattice 0, and the lower neighbor Lattic 0;
+                    newL = 0;
+                    addToM = 1;                 
+                }
+                //Applying rule Two:
+                canvas[M + halfCanvasX][N + 1 + halfCanvasY][L] = 'x';
+                canvas[M + halfCanvasX][N - 1 + halfCanvasY][L] = 'x'; 
+                canvas[M + halfCanvasX][N + halfCanvasY][newL] = 'x'; //Own lattice
+                canvas[M + halfCanvasX][N + 1 + halfCanvasY][newL] = 'x'; //Own lattice
+                canvas[M + halfCanvasX][N - 1 + halfCanvasY][newL] = 'x'; //Own lattice
+                canvas[M + addToM + halfCanvasX][N + 1 + halfCanvasY][newL] = 'x'; //Neighbor lattice.
+                canvas[M + addToM + halfCanvasX][N - 1 + halfCanvasY][newL] = 'x'; //Neighbor Lattice.
+                canvas[M + addToM + halfCanvasX][N + halfCanvasY][newL] = 'x'; //Neighbor lattice.
+
+                /*canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
+                canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';*/
+                extraDBs++;
             }
-            //Rule Two: A 3x3 area is interdicted.
-            
-
-
-            //Apply DBs:
-            cout << "Int: " << x <<"/" << interactions << " N: " << N << " M: " << M << " L: " << L << '\n';           
-            dba[dbAmount + extraDBs].setDB(N, M, L);
-            toCanvas = 'P';
-            canvas[dba[dbAmount + extraDBs].getM() + (maxCanvasX/2)][dba[dbAmount + extraDBs].getN() + (maxCanvasY/2)][dba[dbAmount + extraDBs].getL()] = toCanvas;
-            extraDBs++;
-            //cout << "clear\n " << dba[dbAmount + extraDBs].getM() << " " << dba[dbAmount + extraDBs].getN() << " " << dba[dbAmount + extraDBs].getL() << "\n";
+    
         }
-        cout << "Test ---\n";
+        //std::cout << "Test ---\n";
 
        
-
+        // Print Canvas.
         for(int column = 0; column < maxCanvasX; column++){
 			for (int latice = 0; latice < maxCanvasLatice; latice++){
 				for(int line = 0; line < maxCanvasY; line++){
@@ -152,24 +169,22 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount){
 			}
 			LOG << '\n';
         }
+
         x++;
-        //Clear canvas quickly.
-         for(int h = 0; h < maxDBs; h++){
-            canvas[dba[dbAmount + h].getM() + (maxCanvasX/2)][dba[dbAmount + h].getN() + (maxCanvasY/2)][dba[dbAmount + h].getL()] = '.';
+        //Clear canvas, the quickest and most efficient method would be applying the rules in reverse, but i'm not in the mood for that...
+        for(int h = minM - 1; h <= maxM + 1; h++){
+            for(int j = minN - 1; j <= maxN + 1; j++){
+                for(int p = 0; p <= 1; p++){
+                    canvas[h + halfCanvasX][j + halfCanvasY][p] = '.';
+                }
+            }
+                
         }
+        
     }
 
     // Print Canvas.
-    /*for(int column = 0; column < maxCanvasX; column++){
-			for (int latice = 0; latice < maxCanvasLatice; latice++){
-				for(int line = 0; line < maxCanvasY; line++){
-					LOG << canvas[column][line][latice] << ' ';
-				}
-				LOG << '\n';
-			}
-			LOG << '\n';
-    }
-    */
+    
     LOG.close();
     
 }

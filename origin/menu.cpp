@@ -39,7 +39,7 @@ void menu(bool resultOutput, bool advancedOptions, bool supressAnneal)
 		cout << " |  2) Load into memory wanted simulation file     | 12) Batch mode for all files!  (WIP)            |\n"; 
 		cout << " |  3) Load list of perturbers for simulation file | 13) Configurate Randomizer                      |\n";                                            
 		cout << " |-------------------- Runtime --------------------| 14) Start Randomization                         |\n";
-		cout << " |  4) Make permutations of the loaded file        |                                                 |\n";
+		cout << " |  4) Make permutations of the loaded file        | 15) Make Random calls                           |\n";
 		cout << " |  5) Call Simanneal on all annealInput files     |                                                 |\n";
 		cout << " |-------------------- Results --------------------|                                                 |\n";
 		cout << " |  6) Read single result file                     |                                                 |\n";

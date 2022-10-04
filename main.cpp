@@ -13,7 +13,7 @@ int main()
 	int perms = 0;
 	int dbAmount = 0;
 	int dbd[MaxDBS];
-	
+	int randomCalls = 0;
 
 	bool fullResult = false;
 	bool advancedOptions = true;
@@ -133,12 +133,17 @@ int main()
 			break;
 			case 13: //Configurate the Randomizer, currently WIP.
 				rfc.changeWorkplace();
+				srand(42);
 			break;
 			case 14: //Starts the Randomization, currently WIP.
-				srand(42);
 				fileName = "./simulationFiles/Hexagon31.xml";
 				dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
-				rfc.makeRandomization(dba, dbAmount);
+				rfc.makeRandomization(dba, dbAmount, &randomCalls);
+				randomCalls = 0;
+			break;
+			case 15: //Set the RandomCalls for Randomization;
+				std::cout << "> Digit how many random calls do you want to initiate.\n >> ";
+				std::cin >> randomCalls;
 			break;
 		}
 	}

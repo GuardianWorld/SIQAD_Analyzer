@@ -36,6 +36,8 @@
 
 #define maxCanvasX 30
 #define maxCanvasY 95
+#define halfCanvasX (maxCanvasX/2)
+#define halfCanvasY (maxCanvasY/2)
 #define maxCanvasLatice 2
 
 

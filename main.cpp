@@ -144,7 +144,7 @@ int main()
 				fileName = "./simulationFiles/Hexagon31.xml";
 				dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
 				rfc.makeRandomization(dba, dbAmount, &randomCalls);
-				cout << randomCalls << "\n";
+				cout << "Random Calls: " <<randomCalls << "\n";
 				//randomCalls = 0;
 			break;
 			case 15: //Set the RandomCalls for Randomization;

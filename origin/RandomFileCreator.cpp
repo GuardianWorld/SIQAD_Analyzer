@@ -54,16 +54,16 @@ void configurationFileRFC::changeWorkplace(){
 }
 
 void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, int* randomCalls){    
-    std::cout << mi << endl;
-    std::cout << minN << endl;
-    std::cout << maxN << endl;
-    std::cout << minM << endl;
-    std::cout << maxM << endl;  
-    std::cout << maxDBs << endl;
-    std::cout << divideX << endl;
-    std::cout << divideY << endl;
-    std::cout << valid << endl;
-    std::cout << interactions << endl;
+    std::cout << "mi: " << mi << endl;
+    std::cout << "minN: " << minN << endl;
+    std::cout << "maxN: " << maxN << endl;
+    std::cout << "minM: " << minM << endl;
+    std::cout << "maxM: " << maxM << endl;  
+    std::cout << "maxDBs: "<< maxDBs << endl;
+    std::cout << "divideX: "<< divideX << endl;
+    std::cout << "divideY: "<< divideY << endl;
+    //std::cout << valid << endl;
+    std::cout << "maxInteractions: "<< interactions << endl;
 
     int N, M, L;
     int absOfN = maxN - minN;
@@ -108,7 +108,8 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
     canvas[minM + halfCanvasX][maxN + halfCanvasY][latticeMin] = 'B';
     canvas[maxM + halfCanvasX][minN + halfCanvasY][latticeMax] = 'B';
     canvas[maxM + halfCanvasX][maxN + halfCanvasY][latticeMax] = 'B';*/
-    std::cout << x << "\n" <<interactions << "\n";
+
+    std::cout << "\n";
     std::cout << "Progress: |";
     while(x < interactions){
         extraDBs = 0;
@@ -168,7 +169,7 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
 
        
         // Print Canvas.
-        /*for(int column = 0; column < maxCanvasX; column++){
+        for(int column = 0; column < maxCanvasX; column++){
 			for (int latice = 0; latice < maxCanvasLatice; latice++){
 				for(int line = 0; line < maxCanvasY; line++){
 					LOG << canvas[column][line][latice] << ' ';
@@ -176,7 +177,7 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
 				LOG << '\n';
 			}
 			LOG << '\n';
-        }*/
+        }
 
 
         //Clear canvas, the quickest and most efficient method would be applying the rules in reverse, but i'm not in the mood for that...

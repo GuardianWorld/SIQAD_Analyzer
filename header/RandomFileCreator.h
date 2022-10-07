@@ -4,6 +4,7 @@
 //#include <string>
 #include <sstream>
 #include <iostream>
+#include <unistd.h>
 #include <dirent.h>
 #include "OSFileCorrector.h"
 #include "MainFileManager.h"

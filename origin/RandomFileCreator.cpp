@@ -68,10 +68,10 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
     int N, M, L;
     int absOfN = maxN - minN;
     int absOfM = maxM - minM; 
-    int x = 0;
-    int randomNumber = 0;
+    
+    int x = 0, step = 1, extraDBs = 0;
     char toCanvas;
-    int extraDBs = 0;
+    
     int addToM;
     int newL;
 
@@ -109,13 +109,16 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
     canvas[maxM + halfCanvasX][minN + halfCanvasY][latticeMax] = 'B';
     canvas[maxM + halfCanvasX][maxN + halfCanvasY][latticeMax] = 'B';*/
     std::cout << x << "\n" <<interactions << "\n";
+    std::cout << "Progress: |";
     while(x < interactions){
         extraDBs = 0;
+
         while(extraDBs != maxDBs){//Make random calls, place DBs following certain rules.
             //Call NML positions randomly.
             N = (rand() % (absOfN + 1)) + minN; // -2 to 6
             M = (rand() % (absOfM + 1)) + minM;
             L = (rand() % 2);
+            *randomCalls += 3;
             //Apply Rules:
             //Rule One: The current spot cannot be ocuppied.
             if(canvas[M + halfCanvasX][N + halfCanvasY][L] == '.')
@@ -153,14 +156,19 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
                 canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
                 canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';*/
                 extraDBs++;
-            }
-    
+            }            
         }
+        if(x >= ((interactions/100) * step)){
+            std::cout << "\u25A0" << std::flush;
+            step++;
+        }
+        x++;
+
         //std::cout << "Test ---\n";
 
        
         // Print Canvas.
-        for(int column = 0; column < maxCanvasX; column++){
+        /*for(int column = 0; column < maxCanvasX; column++){
 			for (int latice = 0; latice < maxCanvasLatice; latice++){
 				for(int line = 0; line < maxCanvasY; line++){
 					LOG << canvas[column][line][latice] << ' ';
@@ -168,9 +176,9 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
 				LOG << '\n';
 			}
 			LOG << '\n';
-        }
+        }*/
 
-        x++;
+
         //Clear canvas, the quickest and most efficient method would be applying the rules in reverse, but i'm not in the mood for that...
         for(int h = minM - 1; h <= maxM + 1; h++){
             for(int j = minN - 1; j <= maxN + 1; j++){
@@ -184,7 +192,7 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
     }
 
     // Print Canvas.
-    
+    std::cout << "\u25A0" << "| Done" << std::endl;
     LOG.close();
     
 }

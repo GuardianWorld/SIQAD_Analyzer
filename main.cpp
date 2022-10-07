@@ -37,6 +37,8 @@ int main()
 		dbd[y] = 0;
 	}
 
+	srand(42); //Calls starter seed.
+
 	while (x != 0)
 	{
 		menu(fullResult, advancedOptions, supressAnneal);
@@ -133,13 +135,17 @@ int main()
 			break;
 			case 13: //Configurate the Randomizer, currently WIP.
 				rfc.changeWorkplace();
-				srand(42);
+				int seed;
+				std::cout << "> Digit the seed.\n >> ";
+				//std::cin >> seed; 
+				//srand(seed);
 			break;
 			case 14: //Starts the Randomization, currently WIP.
 				fileName = "./simulationFiles/Hexagon31.xml";
 				dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
 				rfc.makeRandomization(dba, dbAmount, &randomCalls);
-				randomCalls = 0;
+				cout << randomCalls << "\n";
+				//randomCalls = 0;
 			break;
 			case 15: //Set the RandomCalls for Randomization;
 				std::cout << "> Digit how many random calls do you want to initiate.\n >> ";

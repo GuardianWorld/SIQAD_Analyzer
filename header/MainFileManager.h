@@ -86,6 +86,7 @@ class danglingBonds {
 		 * @param mode Assigned 0 for when finding N M L positions from a file, and 1 for assigning the X Y position from a formula.
 		 */
 		void findDBDot(string str, int mode);
+		void findDotBuffer();
 
 		int getN()	  { return n; }
 		int getM()	  { return m; }
@@ -150,3 +151,4 @@ void printResult(danglingBonds dba[], int dbAmount, double *X, double *Y, bool f
 void callAnneal (int dbAmount, bool supressAnneal);
 void printFullResult(danglingBonds dba[], int dbAmount, bool fullResult);
 
+int saveFile(danglingBonds dba[], int dbAmountExtra, int* randomCalls, int seed, string first, string second, string fileName);

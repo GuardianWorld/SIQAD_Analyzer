@@ -1,5 +1,27 @@
 #include "../header/MainFileManager.h"
 
+void danglingBonds::findDotBuffer(){
+	string dotBuffering[11];
+
+	dotBuffering[0] = "            <dbdot>\n";
+	dotBuffering[1] = "                <layer_id>2</layer_id>\n";
+	dotBuffering[2] = "                <latcoord n=\"";
+	dotBuffering[3] = "\" m=\"";
+	dotBuffering[4] = "\" l=\"";
+	dotBuffering[5] = "\"/>\n";
+	dotBuffering[6] = "                <physloc x=\"";
+	dotBuffering[7] = "\" y=\"";
+	dotBuffering[8] = "\"/>\n";
+	dotBuffering[9] = "                <color>#ffc8c8c8</color>\n";
+	dotBuffering[10] = "            </dbdot>\n";
+
+	this->dotBuffer = dotBuffering[0] + dotBuffering[1] +
+	dotBuffering[2] + std::to_string(n) + dotBuffering[3] + std::to_string(m) +	dotBuffering[4] + std::to_string(l) + dotBuffering[5] + 
+	dotBuffering[6] + std::to_string(X) + dotBuffering[7] + std::to_string(Y) + dotBuffering[8] + 
+	dotBuffering[9] + dotBuffering[10];
+
+}
+
 void danglingBonds::findDBDot(string str, int mode)
 {
 	int x = 0, y = 0;
@@ -43,6 +65,10 @@ void danglingBonds::findDBDot(string str, int mode)
 	}
 }
 
+void danglingBonds::findXY(){ 
+	this->X = this->n * 3.84;
+	this->Y = (this->m * 7.68) + (this->l * 2.25);
+}
 
 int convertSQDtoSim(string miValue) //Function that will convert the .SQD to a .XML simulation.
 {
@@ -178,7 +204,6 @@ int readSim(string fileName, danglingBonds dba[MaxDBS], string& bufferStart, str
 	return db;
 }
 
-
 int readList(string fileName, danglingBonds dba[], int dbamount, int *disturberArray)
 {
 	
@@ -233,8 +258,6 @@ void removeSpaces(string &str)
 	auto noSpace = std::remove(str.begin(), str.end(), ' ');
 	str.erase(noSpace, str.end());
 }
-
-
 
 int createPermutations(danglingBonds dba[], string first, string second, int dbAmount, string fileName)
 {
@@ -476,7 +499,23 @@ void callAnneal(int dbAmount, bool supressAnneal)
     }
 }
 
-void danglingBonds::findXY(){ 
-	this->X = this->n * 3.84;
-	this->Y = (this->m * 7.68) + (this->l * 2.25);
+int saveFile(danglingBonds dba[], int dbAmountExtra, int* randomCalls, int seed, string first, string second, string fileName){
+	ofstream SQDFile;
+	string dotFinal;
+	auto s = std::to_string(seed);
+	auto k = std::to_string(*randomCalls);
+	string output = randomOutput + fileName + "_" + s + "_" + k + ".xml";
+	int next = 1;
+	int lenght = 0;
+
+	dotFinal = first;
+	SQDFile.open(output);
+	for (int x = 0; x < dbAmountExtra; x++){
+		dotFinal += dba[x].dotBuffer;
+	}
+	SQDFile << dotFinal;		
+	SQDFile << second;
+	SQDFile.close();
+	return 0;
+
 }

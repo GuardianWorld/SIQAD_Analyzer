@@ -36,8 +36,8 @@ int main()
 	{
 		dbd[y] = 0;
 	}
-
-	srand(42); //Calls starter seed.
+	int seed = 42;
+	srand(seed); //Calls starter seed.
 
 	while (x != 0)
 	{
@@ -135,7 +135,6 @@ int main()
 			break;
 			case 13: //Configurate the Randomizer, currently WIP.
 				rfc.changeWorkplace();
-				int seed;
 				std::cout << "> Digit the seed.\n >> ";
 				//std::cin >> seed; 
 				//srand(seed);
@@ -143,13 +142,32 @@ int main()
 			case 14: //Starts the Randomization, currently WIP.
 				fileName = "./simulationFiles/Hexagon31.xml";
 				dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
-				rfc.makeRandomization(dba, dbAmount, &randomCalls);
+				rfc.makeRandomization(dba, dbAmount, &randomCalls, seed, bufferStart, bufferEnd, "Hexagon31");
 				cout << "Random Calls: " <<randomCalls << "\n";
 				//randomCalls = 0;
 			break;
 			case 15: //Set the RandomCalls for Randomization;
 				std::cout << "> Digit how many random calls do you want to initiate.\n >> ";
 				std::cin >> randomCalls;
+			break;
+			case 16:
+				cout << bufferStart << endl;
+				cout << bufferEnd << endl;
+				cout << dba[0].dotBuffer;
+				string dotBuffering[11];
+
+				dotBuffering[0] = "            <dbdot>\n";
+				dotBuffering[1] = "                <layer_id>2</layer_id>\n";
+				dotBuffering[2] = "                <latcoord n=\"";
+				dotBuffering[3] = "\" m=\"";
+				dotBuffering[4] = "\" l=\"";
+				dotBuffering[5] = "\"/>\n";
+				dotBuffering[6] = "                <physloc x=\"";
+				dotBuffering[7] = "\" y=\"";
+				dotBuffering[8] = "\"/>\n";
+				dotBuffering[9] = "                <color>#ffc8c8c8</color>\n";
+				dotBuffering[10] = "            </dbdot>\n";
+				cout << dotBuffering[0] + dotBuffering[1] + dotBuffering[2] + dotBuffering[3] + dotBuffering[4] + dotBuffering[5] + dotBuffering[6] + dotBuffering[6] + dotBuffering[7] + dotBuffering[8] + dotBuffering[9] + dotBuffering[10];
 			break;
 		}
 	}

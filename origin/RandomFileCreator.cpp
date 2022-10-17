@@ -53,7 +53,7 @@ void configurationFileRFC::changeWorkplace(){
     return;
 }
 
-void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, int* randomCalls){    
+void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, int* randomCalls, int seed, string bs, string be, string fileName){    
     std::cout << "mi: " << mi << endl;
     std::cout << "minN: " << minN << endl;
     std::cout << "maxN: " << maxN << endl;
@@ -127,9 +127,10 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
                 //Apply DBs:
                 //std::cout << "Int: " << x <<"/" << interactions << " N: " << N << " M: " << M << " L: " << L << '\n';           
                 dba[dbAmount + extraDBs].setDB(N, M, L);
+                dba[dbAmount + extraDBs].findDotBuffer();
                 toCanvas = 'P';
                 canvas[M + halfCanvasX][N + halfCanvasY][L] = toCanvas;
-                //canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = toCanvas;
+            
                 //Rule Two: A 3x3 area is interdicted.
                 if(L == 0){ //Can only fill his own Lattice 1, and the upper neighbor Lattice 1;
                     newL = 1;
@@ -167,8 +168,10 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
 
         //std::cout << "Test ---\n";
 
-       
-        // Print Canvas.
+        //Save file after making one random one.
+        saveFile(dba, dbAmount + extraDBs, randomCalls, seed, bs, be, fileName);
+
+        // Print Canvas in a LOG File.
         for(int column = 0; column < maxCanvasX; column++){
 			for (int latice = 0; latice < maxCanvasLatice; latice++){
 				for(int line = 0; line < maxCanvasY; line++){
@@ -195,5 +198,4 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
     // Print Canvas.
     std::cout << "\u25A0" << "| Done" << std::endl;
     LOG.close();
-    
 }

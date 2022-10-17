@@ -30,7 +30,7 @@ class configurationFileRFC{
     public:
     void configFileName();
     void changeWorkplace();
-    void makeRandomization(danglingBonds dba[], int dbAmount, int* randomCalls);
+    void makeRandomization(danglingBonds dba[], int dbAmount, int* randomCalls, int seed, string bs, string be, string fileName);
 
 };
 

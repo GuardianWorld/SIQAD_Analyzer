@@ -200,7 +200,7 @@ int readSim(string fileName, danglingBonds dba[MaxDBS], string& bufferStart, str
 		std::cout << "> error! Invalid File \n";
 		return 0;
 	}
-	std::cout << "> Done!\n";
+	//std::cout << "> Done!\n";
 	return db;
 }
 
@@ -245,10 +245,11 @@ int readList(string fileName, danglingBonds dba[], int dbamount, int *disturberA
 				}
 			}
 		}
-		std::cout << "> Done!\n";
+		//std::cout << "> Done!\n";
 	}
 	else{
 		std::cout << "> Error! Invalid File!\n";
+		return -1;
 	}
 	return output;
 }
@@ -259,10 +260,11 @@ void removeSpaces(string &str)
 	str.erase(noSpace, str.end());
 }
 
-int createPermutations(danglingBonds dba[], string first, string second, int dbAmount, string fileName)
+int createPermutations(danglingBonds dba[], string first, string second, int dbAmount, string fileName, string outputPath)
 {
 	ofstream SQDFile;
-	string output = firstOutput + fileName + "0.xml";
+	string output = outputPath + fileName + "0.xml";
+	//cout << output << endl;
 	string * combin = new string[5];
 
 	int next = 1;
@@ -296,13 +298,13 @@ int createPermutations(danglingBonds dba[], string first, string second, int dbA
 
 
 	for (int i = 1; i <= lenght; i++) {
-		Combi(combin, i, 0, 0, check, lenght, first, second, &next, fileName);
+		Combi(combin, i, 0, 0, check, lenght, first, second, &next, fileName, outputPath);
 	}
-	std::cout << "> Done!\n";
+	//std::cout << "> Done!\n";
 	return 0;
 
 }
-void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, string first, string second, int* next, string fileName)
+void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, string first, string second, int* next, string fileName, string outputPath)
 {
 	ofstream SQDFile;
 	if (currLen > reqLen)
@@ -310,7 +312,7 @@ void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, stri
 	else if (currLen == reqLen) {
 		//cout << "\t";
 		string output;
-		output = dir_input_anneal_xml + fileName + std::to_string(*next) + ".xml";
+		output = outputPath + fileName + std::to_string(*next) + ".xml";
 		SQDFile.open(output);
 		SQDFile << first;
 		for (int i = 0; i < l; i++) {
@@ -329,9 +331,9 @@ void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, stri
 		return;
 	}
 	check[s] = true;
-	Combi(a, reqLen, s + 1, currLen + 1, check, l, first, second, next, fileName);
+	Combi(a, reqLen, s + 1, currLen + 1, check, l, first, second, next, fileName, outputPath);
 	check[s] = false;
-	Combi(a, reqLen, s + 1, currLen, check, l, first, second, next, fileName);
+	Combi(a, reqLen, s + 1, currLen, check, l, first, second, next, fileName, outputPath);
 }
 
 void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool fullResult, ofstream *LOG)
@@ -467,11 +469,11 @@ void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool ful
 	return;
 }
 
-void callAnneal(int dbAmount, bool supressAnneal)
+void callAnneal(int dbAmount, bool supressAnneal, string dirAnneal)
 {
 	DIR *d;
     struct dirent *dir;
-    d = opendir(dir_input_anneal_xml);
+    d = opendir(dirAnneal.c_str());
     string command;
     string filename;
     string outputname;
@@ -505,6 +507,7 @@ int saveFile(danglingBonds dba[], int dbAmountExtra, int* randomCalls, int seed,
 	auto s = std::to_string(seed);
 	auto k = std::to_string(*randomCalls);
 	string output = randomOutput + fileName + "_" + s + "_" + k + ".xml";
+	//cout << output << endl;
 	int next = 1;
 	int lenght = 0;
 
@@ -519,3 +522,4 @@ int saveFile(danglingBonds dba[], int dbAmountExtra, int* randomCalls, int seed,
 	return 0;
 
 }
+

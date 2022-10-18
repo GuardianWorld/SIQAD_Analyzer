@@ -8,6 +8,7 @@
 #include <dirent.h>
 #include "OSFileCorrector.h"
 #include "MainFileManager.h"
+#include <filesystem>
 
 class configurationFileRFC{
     private:
@@ -24,6 +25,7 @@ class configurationFileRFC{
     int divideY;
     bool valid;
     int interactions;
+    int maxBatches;
 
 
 
@@ -32,6 +34,13 @@ class configurationFileRFC{
     void changeWorkplace();
     void makeRandomization(danglingBonds dba[], int dbAmount, int* randomCalls, int seed, string bs, string be, string fileName);
 
+    int getBatches(){
+        return maxBatches;
+    }
+    int getInteractions(){
+        return interactions;
+    }
 };
 
 void printRandomizer(danglingBonds dba[], int dbAmount, double *X, double *Y, bool fullResult, ofstream *LOG, string filename, char canvas[maxCanvasX][maxCanvasY][maxCanvasY]);
+int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePert, int seed, int *randomCalls);

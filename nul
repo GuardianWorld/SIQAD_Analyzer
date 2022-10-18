@@ -1,8 +1,8 @@
 Physeng invoked
 *** Argument Parsing ***
-In File: ./annealInput/HNAND0.xml
-Out File: ./results/HNAND0.xml
+In File: ./annealInput/Hexagon31_42_75_7.xml
+Out File: ./results/Hexagon31_42_75_7.xml
 External Potentials File: 
 
 *** Initiate SimAnneal interface ***
-Reading problem file: ./annealInput/HNAND0.xml
+Reading problem file: ./annealInput/Hexagon31_42_75_7.xml

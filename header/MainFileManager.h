@@ -142,13 +142,13 @@ int convertSQDtoSim(string miValue);
 
 int readSim(string fileName, danglingBonds dba[MaxDBS], string& bufferStart, string& bufferEnd);
 int readList(string fileName, danglingBonds dba[], int dbAmount, int* disturberArray);
-int createPermutations(danglingBonds dba[], string first, string second, int dbAmount, string fileName);
-void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, string first, string second, int* next, string fileName);
+int createPermutations(danglingBonds dba[], string first, string second, int dbAmount, string fileName, string outputPath);
+void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, string first, string second, int* next, string fileName, string outputPath);
 void removeSpaces(string &str);
 
 void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool fullResult, ofstream *LOG);
 void printResult(danglingBonds dba[], int dbAmount, double *X, double *Y, bool fullResult, ofstream *LOG, string filename);
-void callAnneal (int dbAmount, bool supressAnneal);
+void callAnneal (int dbAmount, bool supressAnneal, string dirAnneal);
 void printFullResult(danglingBonds dba[], int dbAmount, bool fullResult);
 
 int saveFile(danglingBonds dba[], int dbAmountExtra, int* randomCalls, int seed, string first, string second, string fileName);

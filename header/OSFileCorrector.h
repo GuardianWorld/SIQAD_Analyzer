@@ -23,7 +23,8 @@ using namespace std;
 #define dir_simulation "./simulationFiles/"
 
 #define firstOutput "./annealInput/"
-#define randomOutput "./randomOutput/"
+#define randomOutput "./randomGen/"
+#define randomOutputAnneal "./annealRandom/"
 
 //Defines for Config file for Part 2;
 #define dir_configFile "./default/"

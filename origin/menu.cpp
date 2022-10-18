@@ -40,8 +40,8 @@ void menu(bool resultOutput, bool advancedOptions, bool supressAnneal)
 		cout << " |  3) Load list of perturbers for simulation file | 13) Configurate Randomizer                      |\n";                                            
 		cout << " |-------------------- Runtime --------------------| 14) Start Randomization                         |\n";
 		cout << " |  4) Make permutations of the loaded file        | 15) Make Random calls                           |\n";
-		cout << " |  5) Call Simanneal on all annealInput files     |                                                 |\n";
-		cout << " |-------------------- Results --------------------|                                                 |\n";
+		cout << " |  5) Call Simanneal on all annealInput files     | 16) RandomPermutation and Anneal                |\n";
+		cout << " |-------------------- Results --------------------| 17) RandomBatch                                 |\n";
 		cout << " |  6) Read single result file                     |                                                 |\n";
 		cout << " |  7) Read entire result folder                   |                                                 |\n";
 		cout << " |  8) Print full result "+rO+"                    |                                                 |\n";
@@ -95,11 +95,11 @@ string loadPerturberText()
 	return dir_operations + fileName + ".txt";
 }
 
-string loadPermutationText()
+string loadPermutationText(string folderName)
 {
 	string y;
 	std::cout << "> Are you sure you wanna execute the program?\n";
-	std::cout << "> This will make several file variations on the folder annealInput, make sure its empty!\n";
+	std::cout << "> This will make several file variations on the folder "+ folderName +", make sure its empty!\n";
 	std::cout << "> [y/n]: ";
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cin >> y;
@@ -137,4 +137,22 @@ int allResultsText()
 		return 1;
 	}
 	return 0;
+}
+
+string loadPermutationRandom(string folderName)
+{
+	string y;
+	std::cout << "> Are you sure you wanna execute the program?\n";
+	std::cout << "> This will make several file variations on the folder "+ folderName +", make sure its empty!\n";
+	std::cout << "> [y/n]: ";
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::cin >> y;
+	if(y.compare("y") == 0 || y.compare("Y") == 0){
+		return "1";
+	}
+	return "0";
+}
+
+void batchRandom(){
+	std::cout << "> Doing Batch from files in Random Generation\n";
 }

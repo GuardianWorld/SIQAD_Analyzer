@@ -42,7 +42,8 @@ void configurationFileRFC::changeWorkplace(){
                 case 7: maxDBs = std::stoi(aux);    break;
                 case 8: divideX = std::stoi(aux);   break;
                 case 9: divideY = std::stoi(aux); break;
-                case 10: interactions = std::stoi(aux);
+                case 10: interactions = std::stoi(aux); break;
+                case 11: maxBatches = std::stoi(aux);
                         valid = true;
                         return; 
            }
@@ -102,15 +103,8 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
         L = (rand() % 2);
     }
 
-    //Make While loop for randomization
-    
-    /*canvas[minM + halfCanvasX][minN + halfCanvasY][latticeMin] = 'B';
-    canvas[minM + halfCanvasX][maxN + halfCanvasY][latticeMin] = 'B';
-    canvas[maxM + halfCanvasX][minN + halfCanvasY][latticeMax] = 'B';
-    canvas[maxM + halfCanvasX][maxN + halfCanvasY][latticeMax] = 'B';*/
-
     std::cout << "\n";
-    std::cout << "Progress: |";
+    std::cout << "Progress Interactions: |";
     while(x < interactions){
         extraDBs = 0;
 
@@ -150,13 +144,6 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
                 canvas[M + addToM + halfCanvasX][N - 1 + halfCanvasY][newL] = 'x'; //Neighbor Lattice.
                 canvas[M + addToM + halfCanvasX][N + halfCanvasY][newL] = 'x'; //Neighbor lattice.
 
-                /*canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';
-                canvas[dba[dbAmount + extraDBs].getM() + halfCanvasX][dba[dbAmount + extraDBs].getN() + halfCanvasY][dba[dbAmount + extraDBs].getL()] = 'x';*/
                 extraDBs++;
             }            
         }
@@ -198,4 +185,75 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
     // Print Canvas.
     std::cout << "\u25A0" << "| Done" << std::endl;
     LOG.close();
+}
+
+int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePert, int seed, int *randomCalls){
+	string fileName = "./simulationFiles/Hexagon31.xml";
+    string bufferStart;
+    string bufferEnd;
+	int dbAmount = 0;
+    int batchAmount = 0;
+    //step 2;
+    DIR *d;
+    struct dirent *dir;
+    string command;
+    string fileName2;
+    //step 3;
+    int dbd[MaxDBS];
+    //step 4:
+    string fileName3;
+    int x;
+    int perm;
+    int step = 0;
+    int inv = 1000;
+    //string outputname;
+
+    //Objectives:
+    while(batchAmount < rfc.getBatches()){
+        //Make a batch of files.
+        fileName = "./simulationFiles/Hexagon31.xml";
+        dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
+	    rfc.makeRandomization(dba, dbAmount, randomCalls, seed, bufferStart, bufferEnd, "Hexagon31");
+        //Load into memory one of the simulation files
+        d = opendir(randomOutput);
+        x = 0;
+        if(d){
+            std::cout << "Progress Permutation:  |";
+            while((dir = readdir(d)) != NULL){
+                if(dir->d_name[0] != '.'){
+                    fileName2 = randomOutput;
+                    fileName2.append(dir->d_name);
+                    dbAmount = readSim(fileName2, dba, bufferStart, bufferEnd);
+                    //Load OP File (Perturber file)
+                    if (dbAmount != 0) { 								
+				        perm = readList(filenamePert, dba, dbAmount, dbd);				//Read the list of perturbers and set in memory.
+                        if(perm == -1){
+                            return -1;
+                        }
+                        //Make permutations
+                        fileName3 = dir->d_name;
+                        fileName3.pop_back();
+                        fileName3.pop_back();
+                        fileName3.pop_back();
+                        fileName3.pop_back();
+                        createPermutations(dba, bufferStart, bufferEnd, dbAmount, (fileName3 + "_"), randomOutputAnneal);
+                        if(x >= ((inv/100) * step)){
+                            std::cout << "\u25A0" << std::flush;
+                            step++;
+                        }
+                        x++;
+                        //Call Anneal on them. //TO:DO
+                        //Check results.
+                        //If results are favorable with wanted results, send the file to another folder
+                        //Delete Batches in Folder.
+				    } 
+                }
+            }
+        }
+         std::cout << "| Done\n";
+        batchAmount++;
+        //Go to next Batch.
+    }
+    //callAnneal(dbAmount, true, randomOutputAnneal);
+    return 0;
 }

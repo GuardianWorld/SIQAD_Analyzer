@@ -65,6 +65,7 @@ int main()
 			case 2: //Loads into memory the wanted Simulation file
 				fileName = loadSimText();											//Gets the filename to load the wanted file;
 				dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);			//Reads the Simulation file, and inserts the corresponding DBs in memory.
+				cout << "> Done!";
 			//dbAmount = readSim((dir_simulation + loadSimText() + ".xml"), dba, bufferStart, bufferEnd);
 			break;
 
@@ -75,18 +76,20 @@ int main()
 				} 
 				fileName = loadPerturberText();										//Gets the filename to load the wanted file;
 				permsLoaded = readList(fileName, dba, dbAmount, dbd);				//Read the list of perturbers and set in memory.
+				cout << "> Done!";
 			break;
 
 			case 4:	// Makes permutations with the loaded file.
-				perName = loadPermutationText();
+				perName = loadPermutationText("annealInput");
 				if (perName.compare("0") != 0){
-					createPermutations(dba, bufferStart, bufferEnd, dbAmount, perName);
+					createPermutations(dba, bufferStart, bufferEnd, dbAmount, perName, firstOutput);
 				}
+				cout << "> Done!";
 			break;
 
 			case 5: // Call the SimAnneal plugin to simulate all files.
 				annealCallText();
-				callAnneal(dbAmount, supressAnneal);
+				callAnneal(dbAmount, supressAnneal, dir_input_anneal_xml);
 			break;
 
 			case 6:	// Read a single result file.
@@ -139,7 +142,7 @@ int main()
 				//std::cin >> seed; 
 				//srand(seed);
 			break;
-			case 14: //Starts the Randomization, currently WIP.
+			case 14:
 				fileName = "./simulationFiles/Hexagon31.xml";
 				dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
 				rfc.makeRandomization(dba, dbAmount, &randomCalls, seed, bufferStart, bufferEnd, "Hexagon31");
@@ -150,24 +153,8 @@ int main()
 				std::cout << "> Digit how many random calls do you want to initiate.\n >> ";
 				std::cin >> randomCalls;
 			break;
-			case 16:
-				cout << bufferStart << endl;
-				cout << bufferEnd << endl;
-				cout << dba[0].dotBuffer;
-				string dotBuffering[11];
-
-				dotBuffering[0] = "            <dbdot>\n";
-				dotBuffering[1] = "                <layer_id>2</layer_id>\n";
-				dotBuffering[2] = "                <latcoord n=\"";
-				dotBuffering[3] = "\" m=\"";
-				dotBuffering[4] = "\" l=\"";
-				dotBuffering[5] = "\"/>\n";
-				dotBuffering[6] = "                <physloc x=\"";
-				dotBuffering[7] = "\" y=\"";
-				dotBuffering[8] = "\"/>\n";
-				dotBuffering[9] = "                <color>#ffc8c8c8</color>\n";
-				dotBuffering[10] = "            </dbdot>\n";
-				cout << dotBuffering[0] + dotBuffering[1] + dotBuffering[2] + dotBuffering[3] + dotBuffering[4] + dotBuffering[5] + dotBuffering[6] + dotBuffering[6] + dotBuffering[7] + dotBuffering[8] + dotBuffering[9] + dotBuffering[10];
+			case 16:		
+				RandomBatch(dba, rfc, loadPerturberText(), seed, &randomCalls);								
 			break;
 		}
 	}

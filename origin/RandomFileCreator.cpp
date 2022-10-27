@@ -205,14 +205,23 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
     int x;
     int perm;
     int step = 0;
-    int inv = 1000;
+    int inv = rfc.getInteractions();
+    
+    //Step 8:
+    string temp;
+    temp = randomOutput;
+    string deletionCommand1 = "perl -e 'for(<" + temp + "*>){((stat)[9]<(unlink))}'";
+    temp = randomOutputAnneal;
+    string deletionCommand2 = "perl -e 'for(<" + temp + "*>){((stat)[9]<(unlink))}'";
     //string outputname;
 
     //Objectives:
     while(batchAmount < rfc.getBatches()){
-        //Make a batch of files.
+        //Load the file for the batch.
         fileName = "./simulationFiles/Hexagon31.xml";
         dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
+        //Make the Loading bar variable for permutations:
+        perm = readList(filenamePert, dba, dbAmount, dbd);
 	    rfc.makeRandomization(dba, dbAmount, randomCalls, seed, bufferStart, bufferEnd, "Hexagon31");
         //Load into memory one of the simulation files
         d = opendir(randomOutput);
@@ -242,18 +251,24 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
                             step++;
                         }
                         x++;
-                        //Call Anneal on them. //TO:DO
+                        //Call Anneal on them.
+                        callAnneal(dbAmount, false, randomOutputAnneal, randomAnnealOutput_xml);
                         //Check results.
+                        
                         //If results are favorable with wanted results, send the file to another folder
-                        //Delete Batches in Folder.
 				    } 
                 }
             }
         }
-         std::cout << "| Done\n";
+        //Delete Files in Folders.
+        std::cout << "| Done\n";
+        std::cout << "Deleting files for next Batch!\n";
+        system(deletionCommand1.c_str());
+        system(deletionCommand2.c_str());
         batchAmount++;
         //Go to next Batch.
     }
     //callAnneal(dbAmount, true, randomOutputAnneal);
     return 0;
 }
+

@@ -89,7 +89,7 @@ int main()
 
 			case 5: // Call the SimAnneal plugin to simulate all files.
 				annealCallText();
-				callAnneal(dbAmount, supressAnneal, dir_input_anneal_xml);
+				callAnneal(dbAmount, supressAnneal, dir_input_anneal_xml, dir_output_xml);
 			break;
 
 			case 6:	// Read a single result file.

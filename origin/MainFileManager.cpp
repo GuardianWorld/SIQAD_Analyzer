@@ -469,7 +469,7 @@ void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool ful
 	return;
 }
 
-void callAnneal(int dbAmount, bool supressAnneal, string dirAnneal)
+void callAnneal(int dbAmount, bool supressAnneal, string dirAnneal, string outAnneal)
 {
 	DIR *d;
     struct dirent *dir;
@@ -480,8 +480,8 @@ void callAnneal(int dbAmount, bool supressAnneal, string dirAnneal)
     if(d){
         while((dir = readdir(d)) != NULL){
             if(dir->d_name[0] != '.'){
-                filename = dir_input_anneal_xml;
-                outputname = dir_output_xml;
+                filename = dirAnneal;
+                outputname = outAnneal;
                 command = dir_anneal;
                 filename.append(dir->d_name);
                 outputname.append(dir->d_name);

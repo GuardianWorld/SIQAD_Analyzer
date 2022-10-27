@@ -25,6 +25,7 @@ using namespace std;
 #define firstOutput "./annealInput/"
 #define randomOutput "./randomGen/"
 #define randomOutputAnneal "./annealRandom/"
+#define randomAnnealOutput_xml "./resultsRandom/"
 
 //Defines for Config file for Part 2;
 #define dir_configFile "./default/"

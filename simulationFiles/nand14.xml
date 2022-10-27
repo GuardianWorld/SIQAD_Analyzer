@@ -15,7 +15,7 @@
         <debye_length>5</debye_length>
         <eps_r>5.599999904632568</eps_r>
         <hop_attempt_factor>5</hop_attempt_factor>
-        <muzm>-0.32</muzm>
+        <muzm>-0.33</muzm>
         <num_instances>-1</num_instances>
         <phys_validity_check_cycles>10</phys_validity_check_cycles>
         <reset_T_during_v_freeze_reset>false</reset_T_during_v_freeze_reset>

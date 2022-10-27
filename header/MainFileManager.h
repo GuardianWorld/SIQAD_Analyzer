@@ -148,7 +148,7 @@ void removeSpaces(string &str);
 
 void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool fullResult, ofstream *LOG);
 void printResult(danglingBonds dba[], int dbAmount, double *X, double *Y, bool fullResult, ofstream *LOG, string filename);
-void callAnneal (int dbAmount, bool supressAnneal, string dirAnneal);
+void callAnneal (int dbAmount, bool supressAnneal, string dirAnneal, string outAnneal);
 void printFullResult(danglingBonds dba[], int dbAmount, bool fullResult);
 
 int saveFile(danglingBonds dba[], int dbAmountExtra, int* randomCalls, int seed, string first, string second, string fileName);

@@ -254,7 +254,7 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
                         //Call Anneal on them.
                         callAnneal(dbAmount, false, randomOutputAnneal, randomAnnealOutput_xml);
                         //Check results.
-                        
+
                         //If results are favorable with wanted results, send the file to another folder
 				    } 
                 }
@@ -271,4 +271,3 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
     //callAnneal(dbAmount, true, randomOutputAnneal);
     return 0;
 }
-

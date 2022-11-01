@@ -86,7 +86,13 @@ class danglingBonds {
 		 * @param mode Assigned 0 for when finding N M L positions from a file, and 1 for assigning the X Y position from a formula.
 		 */
 		void findDBDot(string str, int mode);
-		void findDotBuffer();
+	
+		/**
+		 * @brief Makes a String with the default and necessary information to save in the SQD simulation file; Uses the mnl and xy positions inside the class to generate the correct inputs.
+		 * 
+		 * @return Return a string containing the necessary information to be used and placed inside the file.
+		 */
+		string findDotBuffer();
 
 		int getN()	  { return n; }
 		int getM()	  { return m; }
@@ -94,7 +100,11 @@ class danglingBonds {
 		double getX() { return X; }
 		double getY() { return Y; }
 
-
+		 /**
+		 * @brief Verifies if the N,M and L position inside the class matches the iN,iM,iL inputs that it receives.
+		 * 
+		 * @return Returns true if it matches, returns false if it does not match.
+		 */
 		int compare(int iN, int iM, int iL)
 		{
 			if (iN == n && iM == m && iL == l) return 1; 
@@ -113,7 +123,14 @@ class danglingBonds {
 		void setState()  { negative = !negative; }
 		bool getState()	 { return negative;		}
 		void resetState(){	negative = false;	}
-
+	
+		/**
+		 * @brief Sets manually the N,M,L. Should not be used by hand most of the times, since it gets the INT value instead of the string from the file. Has uses in the Randomizer section or manually setting things to help create DB circuits. 
+		 * 
+		 * @param N receives a value of N;
+		 * @param M receives a value of M;
+		 * @param L receives a value of L;
+		 */
 		void setDB(int N, int M, int L){
 			cleanDBs();
 			n = N;
@@ -122,8 +139,18 @@ class danglingBonds {
 			findXY();
 			isActive = true;
 		}
+	
+		/**
+		 * @brief Finds the X and Y position of DBs. Its used when inputting DBs values manually only.
+		 * 
+		 */
 		void findXY();
 
+	
+		/**
+		 * @brief Resets all the DBs to a clean state. (Like a initialization, but places zero in all values).
+		 * 
+		 */
 		void cleanDBs(){
 			n = 0;
 			m = 0;
@@ -138,6 +165,13 @@ class danglingBonds {
 		}
 };
 
+/**
+* @brief Converts a SQD save file to a XML Simulation file, changing the value of Mi if wanted;
+* 
+* @param miValue Receives a string containing a paramter to mi. if its NULL it sets mi to -0.25, otherwise sets the value to the wanted one;
+*
+* @return Returns 0 if the reading of a folder containing files was successfull, or returns -1 if a folder was not read successfully.
+*/
 int convertSQDtoSim(string miValue);
 
 int readSim(string fileName, danglingBonds dba[MaxDBS], string& bufferStart, string& bufferEnd);

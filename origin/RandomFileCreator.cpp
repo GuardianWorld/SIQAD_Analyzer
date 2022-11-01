@@ -54,7 +54,7 @@ void configurationFileRFC::changeWorkplace(){
     return;
 }
 
-void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, int* randomCalls, int seed, string bs, string be, string fileName){    
+void configurationFileRFC::printInfo(){
     std::cout << "mi: " << mi << endl;
     std::cout << "minN: " << minN << endl;
     std::cout << "maxN: " << maxN << endl;
@@ -65,19 +65,19 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
     std::cout << "divideY: "<< divideY << endl;
     //std::cout << valid << endl;
     std::cout << "maxInteractions: "<< interactions << endl;
+}
 
-    int N, M, L;
+void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, int* randomCalls, int seed, string bs, string be, string fileName){    
+
+    int N, M, L, x = 0, step = 1, extraDBs = 0, addToM, newL;
     int absOfN = maxN - minN;
     int absOfM = maxM - minM; 
-    
-    int x = 0, step = 1, extraDBs = 0;
     char toCanvas;
-    
-    int addToM;
-    int newL;
-
     ofstream LOG;
-	LOG.open("hexTest.txt");
+	
+    this.printInfo();
+	
+    LOG.open("hexTest.txt");
     //Place . on Canvas;
     char canvas[maxCanvasX][maxCanvasY][maxCanvasLatice];
     for(int column = 0; column < maxCanvasX; column++){			
@@ -97,6 +97,7 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
     }
 
     //Initialize Seed.
+	//ToDO: make a function that will initialize the seed, and a function that will initialize the CANVAS to lower the size of this func.
     for(int k = 0; k < *randomCalls; k += 3){
         N = (rand() % (absOfN + 1)) + minN; // -2 to 6
         M = (rand() % (absOfM + 1)) + minM;
@@ -118,8 +119,7 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
             //Rule One: The current spot cannot be ocuppied.
             if(canvas[M + halfCanvasX][N + halfCanvasY][L] == '.')
             {
-                //Apply DBs:
-                //std::cout << "Int: " << x <<"/" << interactions << " N: " << N << " M: " << M << " L: " << L << '\n';           
+                //Apply DBs:          
                 dba[dbAmount + extraDBs].setDB(N, M, L);
                 dba[dbAmount + extraDBs].findDotBuffer();
                 toCanvas = 'P';
@@ -153,12 +153,10 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
         }
         x++;
 
-        //std::cout << "Test ---\n";
-
         //Save file after making one random one.
         saveFile(dba, dbAmount + extraDBs, randomCalls, seed, bs, be, fileName);
 
-        // Print Canvas in a LOG File.
+        // Print Canvas in a LOG File. //Place in its own function in PRINTAUX thingy;
         for(int column = 0; column < maxCanvasX; column++){
 			for (int latice = 0; latice < maxCanvasLatice; latice++){
 				for(int line = 0; line < maxCanvasY; line++){
@@ -168,21 +166,17 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
 			}
 			LOG << '\n';
         }
-
-
+	    
         //Clear canvas, the quickest and most efficient method would be applying the rules in reverse, but i'm not in the mood for that...
+	//Plus, this method only takes fractions of a second at the moment.
         for(int h = minM - 1; h <= maxM + 1; h++){
             for(int j = minN - 1; j <= maxN + 1; j++){
                 for(int p = 0; p <= 1; p++){
                     canvas[h + halfCanvasX][j + halfCanvasY][p] = '.';
                 }
-            }
-                
-        }
-        
+            }        
+        }  
     }
-
-    // Print Canvas.
     std::cout << "\u25A0" << "| Done" << std::endl;
     LOG.close();
 }

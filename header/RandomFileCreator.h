@@ -26,6 +26,7 @@ class configurationFileRFC{
     bool valid;
     int interactions;
     int maxBatches;
+    int currentlyRandomCall;
 
 
 
@@ -40,6 +41,7 @@ class configurationFileRFC{
     int getInteractions(){
         return interactions;
     }
+    
 };
 
 void printRandomizer(danglingBonds dba[], int dbAmount, double *X, double *Y, bool fullResult, ofstream *LOG, string filename, char canvas[maxCanvasX][maxCanvasY][maxCanvasY]);

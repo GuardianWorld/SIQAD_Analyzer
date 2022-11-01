@@ -33,7 +33,7 @@ class configurationFileRFC{
     void configFileName();
     void changeWorkplace();
     void makeRandomization(danglingBonds dba[], int dbAmount, int* randomCalls, int seed, string bs, string be, string fileName);
-
+    void configurationFileRFC::printInfo();
     int getBatches(){
         return maxBatches;
     }

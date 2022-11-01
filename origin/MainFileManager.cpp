@@ -1,6 +1,6 @@
 #include "../header/MainFileManager.h"
 
-void danglingBonds::findDotBuffer(){
+string danglingBonds::findDotBuffer(){
 	string dotBuffering[11];
 
 	dotBuffering[0] = "            <dbdot>\n";
@@ -15,7 +15,7 @@ void danglingBonds::findDotBuffer(){
 	dotBuffering[9] = "                <color>#ffc8c8c8</color>\n";
 	dotBuffering[10] = "            </dbdot>\n";
 
-	this->dotBuffer = dotBuffering[0] + dotBuffering[1] +
+	return dotBuffering[0] + dotBuffering[1] +
 	dotBuffering[2] + std::to_string(n) + dotBuffering[3] + std::to_string(m) +	dotBuffering[4] + std::to_string(l) + dotBuffering[5] + 
 	dotBuffering[6] + std::to_string(X) + dotBuffering[7] + std::to_string(Y) + dotBuffering[8] + 
 	dotBuffering[9] + dotBuffering[10];

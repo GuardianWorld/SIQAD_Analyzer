@@ -75,7 +75,7 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
     char toCanvas;
     ofstream LOG;
 	
-    this.printInfo();
+    this->printInfo();
 	
     LOG.open("hexTest.txt");
     //Place . on Canvas;
@@ -207,6 +207,8 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
     string deletionCommand1 = "perl -e 'for(<" + temp + "*>){((stat)[9]<(unlink))}'";
     temp = randomOutputAnneal;
     string deletionCommand2 = "perl -e 'for(<" + temp + "*>){((stat)[9]<(unlink))}'";
+    temp = randomAnnealOutput_xml;
+    string deletionCommand3 = "perl -e 'for(<" + temp + "*>){((stat)[9]<(unlink))}'";
     //string outputname;
 
     //Objectives:
@@ -216,7 +218,7 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
         dbAmount = readSim(fileName, dba, bufferStart, bufferEnd);
         //Make the Loading bar variable for permutations:
         perm = readList(filenamePert, dba, dbAmount, dbd);
-	    rfc.makeRandomization(dba, dbAmount, randomCalls, seed, bufferStart, bufferEnd, "Hexagon31");
+	    //rfc.makeRandomization(dba, dbAmount, randomCalls, seed, bufferStart, bufferEnd, "Hexagon31");
         //Load into memory one of the simulation files
         d = opendir(randomOutput);
         x = 0;
@@ -227,6 +229,7 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
                     fileName2 = randomOutput;
                     fileName2.append(dir->d_name);
                     dbAmount = readSim(fileName2, dba, bufferStart, bufferEnd);
+                    cout << "Open File: " << fileName2 << endl;
                     //Load OP File (Perturber file)
                     if (dbAmount != 0) { 								
 				        perm = readList(filenamePert, dba, dbAmount, dbd);				//Read the list of perturbers and set in memory.
@@ -239,16 +242,16 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
                         fileName3.pop_back();
                         fileName3.pop_back();
                         fileName3.pop_back();
-                        createPermutations(dba, bufferStart, bufferEnd, dbAmount, (fileName3 + "_"), randomOutputAnneal);
+                        //createPermutations(dba, bufferStart, bufferEnd, dbAmount, (fileName3 + "_"), randomOutputAnneal);
                         if(x >= ((inv/100) * step)){
                             std::cout << "\u25A0" << std::flush;
                             step++;
                         }
                         x++;
                         //Call Anneal on them.
-                        callAnneal(dbAmount, false, randomOutputAnneal, randomAnnealOutput_xml);
+                        //callAnneal(dbAmount, false, randomOutputAnneal, randomAnnealOutput_xml);
                         //Check results.
-
+                        checkRandomAnnealFullResults(dba, dbAmount);
                         //If results are favorable with wanted results, send the file to another folder
 				    } 
                 }
@@ -257,11 +260,44 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
         //Delete Files in Folders.
         std::cout << "| Done\n";
         std::cout << "Deleting files for next Batch!\n";
-        system(deletionCommand1.c_str());
-        system(deletionCommand2.c_str());
+        //system(deletionCommand1.c_str());
+        //system(deletionCommand2.c_str());
+        //system(deletionCommand3.c_str());
         batchAmount++;
         //Go to next Batch.
     }
     //callAnneal(dbAmount, true, randomOutputAnneal);
     return 0;
+}
+
+void organizeResults(string fileName, danglingBonds dba[], int dbAmount)
+{
+    bool AND[8] =   {0,0,0,0,0,0,0,1};
+    bool NAND[8] =  {1,1,1,1,1,1,1,0};
+    bool XAND[8] =  {1,0,0,0,0,0,0,1};
+    bool XNAND[8] = {0,1,1,1,1,1,1,0};
+    bool OR[8] =    {0,1,1,1,1,1,1,1};
+    bool XOR[8] =   {0,1,1,0,1,0,0,1};
+    bool NOR[8] =   {1,0,0,0,0,0,0,0};
+    bool XNOR[8] =  {1,0,0,1,0,1,1,0};
+
+    bool currentTable[8] = {};
+
+	for (int x = 0; x < MaxDBS; x++){
+		dba[x].resetState();
+		dba[x].disableActive();
+	}
+	ifstream ResultFile;
+	ResultFile.open(fileName);
+    cout << fileName << "\n";
+	if (ResultFile.is_open()){
+        
+		//Now that all the values are saved, time to shove them into the DBs.
+		readResultFileHelper(dba, dbAmount, &ResultFile, currentTable);
+        //Here, we check if the DBA checks true with ANY of the arrays inserted. //Verificar AND, NAND, NOR, OR, XOR, XNOR, fazer um Array com info de cada um.
+
+		ResultFile.close();
+	}
+	else{ std::cout << "> error! Invalid File \n"; }
+	return;
 }

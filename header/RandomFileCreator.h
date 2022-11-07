@@ -66,7 +66,7 @@ class configurationFileRFC{
 		* @brief Just prints information pertaining to this class.
 		* 
 		*/
-    void configurationFileRFC::printInfo();
+    void printInfo();
     
     int getBatches(){
         return maxBatches;
@@ -79,8 +79,12 @@ class configurationFileRFC{
 
 void printRandomizer(danglingBonds dba[], int dbAmount, double *X, double *Y, bool fullResult, ofstream *LOG, string filename, char canvas[maxCanvasX][maxCanvasY][maxCanvasY]);
 
-       /**
+    /**
 		* @brief Makes a Batch of randomFiles, using all the variables. Is the main usage of this class.
 		* 
 		*/
 int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePert, int seed, int *randomCalls);
+
+void printRandomAnnealFullResults(danglingBonds dba[], int dbAmount);
+void organizeResults(string fileName, danglingBonds dba[], int dbAmount);
+void checkRandomAnnealFullResults(danglingBonds dba[], int dbAmount);

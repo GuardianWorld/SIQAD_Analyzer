@@ -206,7 +206,6 @@ int readSim(string fileName, danglingBonds dba[MaxDBS], string& bufferStart, str
 
 int readList(string fileName, danglingBonds dba[], int dbamount, int *disturberArray)
 {
-	
 	string line;
 	ifstream listFile;
 	listFile.open(fileName);
@@ -336,6 +335,112 @@ void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, stri
 	Combi(a, reqLen, s + 1, currLen, check, l, first, second, next, fileName, outputPath);
 }
 
+void readResultFileHelper(danglingBonds dba[], int dbAmount, ifstream *ResultFile, bool situation[]){
+	string line;
+
+	double *X = new double[dbAmount];
+	double *Y = new double[dbAmount];
+	char aux[300] = { 0 };
+	bool dbsFound = false;
+	bool elecFound = false;
+
+	elecDist distribution;
+	elecDist dAux;
+	
+	bool found = false;
+	int x,y;
+	int count = 0;
+	if(X != NULL && Y != NULL){
+		for (int x = 0; x < dbAmount; x++){
+			X[x] = ForbiddenInfinity;
+			Y[x] = ForbiddenInfinity;
+		}
+		while (getline(*ResultFile, line))
+		{
+			removeSpaces(line);
+			x = 0;
+			y = 0;
+			found = false;
+			if (line.compare("</physloc>") == 0){dbsFound = false;}
+			if (dbsFound){
+				for (std::string::size_type i = 0; i < line.size(); ++i){
+					if (line[i] == doubleQuotes){
+						found = !found;
+						x = 0;
+						if (aux[0] != 0){
+							if (y == 0) { X[count] = atof(aux); }
+							else if (y == 1){
+								Y[count] = atof(aux); 
+								count++;
+							}
+							y++;
+						}
+						memset(aux, 0, sizeof(aux));
+					}
+					else if (found){
+						aux[x] = line[i];
+						x++;
+					}
+				}
+			}	
+			if (line.compare("<physloc>") == 0){dbsFound = true;}
+			if (line.compare("<elec_dist>") == 0){	elecFound = false; }
+			if (elecFound){
+				int validRun = 1;
+				for (std::string::size_type i = 0; i < line.size(); ++i){
+					if (line[i] == '>' && validRun){
+						validRun = 0;
+						for (int h = 0; h <= dbAmount+1; h++){
+							if (line[i + h +1] == '<'){break;}
+							dAux.coordinates[h] = line[i + h + 1];
+						}
+						if (dAux.valid && dAux.energy < distribution.energy){
+							distribution.energy = dAux.energy;
+							distribution.count = dAux.count;
+							distribution.valid = dAux.valid;
+							distribution.state_count = dAux.state_count;
+							strcpy(distribution.coordinates, dAux.coordinates);
+						}
+					}
+					if (line[i] == doubleQuotes){
+						found = !found;
+						x = 0;
+						if (aux[0] != 0){
+							if (y == 0){ dAux.energy = atof(aux); }
+							else if (y == 1) { dAux.count = atoi(aux); }
+							else if (y == 2) { dAux.valid = atoi(aux); }
+							else if (y == 3) { dAux.state_count = atoi(aux); }
+							y++;
+						}
+						memset(aux, 0, sizeof(aux));
+					}
+					else if (found){
+						aux[x] = line[i];
+						x++;
+					}
+				}
+			}
+				if (line.compare("</elec_dist>") == 0){ elecFound = true;}
+		}
+
+		if (distribution.coordinates[0] != 0){
+			for (x = 0; x < dbAmount; x++){
+				for (int h = 0; h < dbAmount; h++){
+					if (dba[x].getX() == X[h] && dba[x].getY() == Y[h]){
+						if (distribution.coordinates[h] == '-'){ dba[x].setState(); }
+						dba[x].enableActive();
+					}
+				}
+			}
+		}
+		else{ std::cout << " error! Invalid Configuration \n"; }
+	}
+	cout << "distribution Energy: " << distribution.energy << " distribution count: " << distribution.count << " distribution valid:" << distribution.valid << " distribution state: " << distribution.state_count << " distribution coords: " << distribution.coordinates << '\n';
+	delete[] X;
+	delete[] Y;
+	return;
+}
+
 void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool fullResult, ofstream *LOG)
 {
 	ofstream fileLOG;
@@ -456,7 +561,7 @@ void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool ful
 		}
 		else{ std::cout << " error! Invalid Configuration \n"; }
 
-		//cout << "distribution Energy: " << distribution.energy << " distribution count: " << distribution.count << " distribution valid:" << distribution.valid << " distribution state: " << distribution.state_count << " distribution coords: " << distribution.coordinates << '\n';
+		cout << "distribution Energy: " << distribution.energy << " distribution count: " << distribution.count << " distribution valid:" << distribution.valid << " distribution state: " << distribution.state_count << " distribution coords: " << distribution.coordinates << '\n';
 		ResultFile.close();
 
 		// Basic Printing Process
@@ -468,6 +573,8 @@ void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool ful
 	delete[] Y;
 	return;
 }
+
+
 
 void callAnneal(int dbAmount, bool supressAnneal, string dirAnneal, string outAnneal)
 {

@@ -105,6 +105,26 @@ void printFullResult(danglingBonds dba[], int dbAmount, bool fullResult)
 
 }
 
+void checkRandomAnnealFullResults(danglingBonds dba[], int dbAmount)
+{
+	DIR *d;
+    struct dirent *dir;
+    d = opendir(randomAnnealOutput_xml);
+    string command;
+    string filename;
+    string purefileName;
+    if(d){       
+		while((dir = readdir(d)) != NULL){
+            if(dir->d_name[0] != '.'){
+                purefileName = dir->d_name;
+				filename = randomAnnealOutput_xml + purefileName;
+				organizeResults(filename, dba, dbAmount);
+            }
+        }
+    }
+}
+
+
 void printRandomizer(danglingBonds dba[], int dbAmount, double *X, double *Y, bool fullResult, ofstream *LOG, string filename, char canvas[maxCanvasX][maxCanvasY][maxCanvasY]){
 	
 	int x = 0;

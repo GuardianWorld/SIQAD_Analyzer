@@ -180,6 +180,7 @@ int createPermutations(danglingBonds dba[], string first, string second, int dbA
 void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, string first, string second, int* next, string fileName, string outputPath);
 void removeSpaces(string &str);
 
+void readResultFileHelper(danglingBonds dba[], int dbAmount, ifstream *ResultFile, bool situation[]);
 void readResultFile(string fileName, danglingBonds dba[], int dbAmount, bool fullResult, ofstream *LOG);
 void printResult(danglingBonds dba[], int dbAmount, double *X, double *Y, bool fullResult, ofstream *LOG, string filename);
 void callAnneal (int dbAmount, bool supressAnneal, string dirAnneal, string outAnneal);

@@ -272,32 +272,20 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
 
 void organizeResults(string fileName, danglingBonds dba[], int dbAmount)
 {
-    bool AND[8] =   {0,0,0,0,0,0,0,1};
-    bool NAND[8] =  {1,1,1,1,1,1,1,0};
-    bool XAND[8] =  {1,0,0,0,0,0,0,1};
-    bool XNAND[8] = {0,1,1,1,1,1,1,0};
-    bool OR[8] =    {0,1,1,1,1,1,1,1};
-    bool XOR[8] =   {0,1,1,0,1,0,0,1};
-    bool NOR[8] =   {1,0,0,0,0,0,0,0};
-    bool XNOR[8] =  {1,0,0,1,0,1,1,0};
+    bool AND8[8] =   {0,0,0,0,0,0,0,1};
+    bool NAND8[8] =  {1,1,1,1,1,1,1,0};
+    bool XAND8[8] =  {1,0,0,0,0,0,0,1};
+    bool XNAND8[8] = {0,1,1,1,1,1,1,0};
+    bool OR8[8] =    {0,1,1,1,1,1,1,1};
+    bool XOR8[8] =   {0,1,1,0,1,0,0,1};
+    bool NOR8[8] =   {1,0,0,0,0,0,0,0};
+    bool XNOR8[8] =  {1,0,0,1,0,1,1,0};
 
     bool currentTable[8] = {};
-
-	for (int x = 0; x < MaxDBS; x++){
-		dba[x].resetState();
-		dba[x].disableActive();
-	}
-	ifstream ResultFile;
-	ResultFile.open(fileName);
-    cout << fileName << "\n";
-	if (ResultFile.is_open()){
-        
-		//Now that all the values are saved, time to shove them into the DBs.
-		readResultFileHelper(dba, dbAmount, &ResultFile, currentTable);
-        //Here, we check if the DBA checks true with ANY of the arrays inserted. //Verificar AND, NAND, NOR, OR, XOR, XNOR, fazer um Array com info de cada um.
-
-		ResultFile.close();
-	}
-	else{ std::cout << "> error! Invalid File \n"; }
-	return;
+   
+    //Now that all the values are saved, time to shove them into the DBs.
+	readResultFileHelper(dba, dbAmount, fileName, currentTable);
+    //Here, we check if the DBA checks true with ANY of the arrays inserted. //Verificar AND, NAND, NOR, OR, XOR, XNOR, fazer um Array com info de cada um.
+	
+    return;
 }

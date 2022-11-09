@@ -335,9 +335,8 @@ void Combi(string a[], int reqLen, int s, int currLen, bool check[], int l, stri
 	Combi(a, reqLen, s + 1, currLen, check, l, first, second, next, fileName, outputPath);
 }
 
-void readResultFileHelper(danglingBonds dba[], int dbAmount, ifstream *ResultFile, bool situation[]){
+void readResultFileHelper(danglingBonds dba[], int dbAmount,string fileName, bool situation[]){
 	string line;
-
 	double *X = new double[dbAmount];
 	double *Y = new double[dbAmount];
 	char aux[300] = { 0 };
@@ -346,16 +345,22 @@ void readResultFileHelper(danglingBonds dba[], int dbAmount, ifstream *ResultFil
 
 	elecDist distribution;
 	elecDist dAux;
-	
+
+	for (int x = 0; x < MaxDBS; x++){
+		dba[x].resetState();
+		dba[x].disableActive();
+	}
+	for (int x = 0; x < dbAmount; x++){
+		X[x] = ForbiddenInfinity;
+		Y[x] = ForbiddenInfinity;
+	}
 	bool found = false;
 	int x,y;
 	int count = 0;
-	if(X != NULL && Y != NULL){
-		for (int x = 0; x < dbAmount; x++){
-			X[x] = ForbiddenInfinity;
-			Y[x] = ForbiddenInfinity;
-		}
-		while (getline(*ResultFile, line))
+	ifstream ResultFile;
+	ResultFile.open(fileName);
+	if (ResultFile.is_open() && X != NULL && Y != NULL){
+		while (getline(ResultFile, line))
 		{
 			removeSpaces(line);
 			x = 0;
@@ -384,7 +389,7 @@ void readResultFileHelper(danglingBonds dba[], int dbAmount, ifstream *ResultFil
 				}
 			}	
 			if (line.compare("<physloc>") == 0){dbsFound = true;}
-			if (line.compare("<elec_dist>") == 0){	elecFound = false; }
+			if (line.compare("</elec_dist>") == 0){	elecFound = false; }
 			if (elecFound){
 				int validRun = 1;
 				for (std::string::size_type i = 0; i < line.size(); ++i){
@@ -420,9 +425,10 @@ void readResultFileHelper(danglingBonds dba[], int dbAmount, ifstream *ResultFil
 					}
 				}
 			}
-				if (line.compare("</elec_dist>") == 0){ elecFound = true;}
+				if (line.compare("<elec_dist>") == 0){ elecFound = true; }
 		}
 
+		//Now that all the values are saved, time to shove them into the DBs.
 		if (distribution.coordinates[0] != 0){
 			for (x = 0; x < dbAmount; x++){
 				for (int h = 0; h < dbAmount; h++){
@@ -434,8 +440,19 @@ void readResultFileHelper(danglingBonds dba[], int dbAmount, ifstream *ResultFil
 			}
 		}
 		else{ std::cout << " error! Invalid Configuration \n"; }
+
+		for (int x = 0; x < dbAmount; x++){
+			if (dba[x].getObserved() == 1){
+				int pos = fileName.find(".xml");
+				string subs = fileName.substr(pos - 1, 1); // Not the best option, since only 3 -> 1 files can run... but for now it is what it is.
+				int helper = atoi(subs.c_str());
+				//cout << "SUBS: " << subs << endl;
+				situation[helper] = dba[x].getState();				
+			}
+		}
+		ResultFile.close();
 	}
-	cout << "distribution Energy: " << distribution.energy << " distribution count: " << distribution.count << " distribution valid:" << distribution.valid << " distribution state: " << distribution.state_count << " distribution coords: " << distribution.coordinates << '\n';
+	else{ std::cout << "> error! Invalid File \n"; }
 	delete[] X;
 	delete[] Y;
 	return;

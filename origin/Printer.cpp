@@ -37,6 +37,7 @@ void printResult(danglingBonds dba[], int dbAmount, double *X, double *Y, bool f
 		else{toCanvas = '-';}
 		canvas[dba[x].getM() + (maxCanvasX/2)][dba[x].getN() + (maxCanvasY/2)][dba[x].getL()] = toCanvas;
 	}
+	printDBResult(dba, dbAmount);
 	//Canvas printing
 	if(fullResult)
 	{
@@ -66,19 +67,6 @@ void printResult(danglingBonds dba[], int dbAmount, double *X, double *Y, bool f
 			*LOG << '\n';
 		}
 	}
-	
-	for (x = 0; x < dbAmount; x++){
-		if (dba[x].getObserved() == 1){
-			if (dba[x].getState() == 0){
-				std::cout << "The observed DB is Neutral (Transparent)\n";
-				*LOG << "The observed DB is Neutral (Transparent)\n";
-			}
-			else{
-				std::cout << "The observed DB is Negative (Blue)\n";
-				*LOG << "The observed DB is Negative (Blue)\n";
-			}
-		}
-	}
 }
 
 void printFullResult(danglingBonds dba[], int dbAmount, bool fullResult)
@@ -103,6 +91,19 @@ void printFullResult(danglingBonds dba[], int dbAmount, bool fullResult)
     }
 	LOG.close();
 
+}
+
+void printDBResult(danglingBonds dba[], int dbAmount){
+	for (int x = 0; x < dbAmount; x++){
+		if (dba[x].getObserved() == 1){
+			if (dba[x].getState() == 0){
+				std::cout << "The observed DB is Neutral (Transparent)\n";
+			}
+			else{
+				std::cout << "The observed DB is Negative (Blue)\n";
+			}
+		}
+	}
 }
 
 void checkRandomAnnealFullResults(danglingBonds dba[], int dbAmount)
@@ -187,19 +188,6 @@ void printRandomizer(danglingBonds dba[], int dbAmount, double *X, double *Y, bo
 				*LOG << '\n';
 			}
 			*LOG << '\n';
-		}
-	}
-	
-	for (x = 0; x < dbAmount; x++){
-		if (dba[x].getObserved() == 1){
-			if (dba[x].getState() == 0){
-				std::cout << "The observed DB is Neutral (Transparent)\n";
-				*LOG << "The observed DB is Neutral (Transparent)\n";
-			}
-			else{
-				std::cout << "The observed DB is Negative (Blue)\n";
-				*LOG << "The observed DB is Negative (Blue)\n";
-			}
 		}
 	}
 }

@@ -8,7 +8,7 @@
 #include <dirent.h>
 #include "OSFileCorrector.h"
 #include "MainFileManager.h"
-#include <filesystem>
+//#include <filesystem>
 
 		/**
 		 * Main class for the RandomFileCreator, it saves information about the file names, the wanted mi, the minimum values, the workable area, the max dbs, the division of area and all the interactions and batches wanted.
@@ -85,6 +85,7 @@ void printRandomizer(danglingBonds dba[], int dbAmount, double *X, double *Y, bo
 		*/
 int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePert, int seed, int *randomCalls);
 
+bool checkBTables(bool mainTable[], bool checkTable[], int size);
 void printRandomAnnealFullResults(danglingBonds dba[], int dbAmount);
 void organizeResults(string fileName, danglingBonds dba[], int dbAmount);
 void checkRandomAnnealFullResults(danglingBonds dba[], int dbAmount);

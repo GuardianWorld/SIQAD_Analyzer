@@ -238,10 +238,10 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
                         }
                         //Make permutations
                         fileName3 = dir->d_name;
+                        /*fileName3.pop_back();
                         fileName3.pop_back();
                         fileName3.pop_back();
-                        fileName3.pop_back();
-                        fileName3.pop_back();
+                        fileName3.pop_back();*/
                         //createPermutations(dba, bufferStart, bufferEnd, dbAmount, (fileName3 + "_"), randomOutputAnneal);
                         if(x >= ((inv/100) * step)){
                             std::cout << "\u25A0" << std::flush;
@@ -251,7 +251,7 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
                         //Call Anneal on them.
                         //callAnneal(dbAmount, false, randomOutputAnneal, randomAnnealOutput_xml);
                         //Check results.
-                        checkRandomAnnealFullResults(dba, dbAmount);
+                        organizeResults(fileName3,dba, dbAmount);
                         //If results are favorable with wanted results, send the file to another folder
 				    } 
                 }
@@ -270,8 +270,21 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
     return 0;
 }
 
+bool checkBTables(bool mainTable[], bool checkTable[], int size){
+    if(size == 8){
+         for(int x = 0; x < 8; x++){
+            if(mainTable[x] != checkTable[x]){
+                return false;
+            }
+         }
+    }
+    return true;
+}
+
 void organizeResults(string fileName, danglingBonds dba[], int dbAmount)
 {
+    bool _and = true, _nand = true, _xand = true, _xnand = true,
+     _or = true, _xor = true, _nor = true, _xnor = true;
     bool AND8[8] =   {0,0,0,0,0,0,0,1};
     bool NAND8[8] =  {1,1,1,1,1,1,1,0};
     bool XAND8[8] =  {1,0,0,0,0,0,0,1};
@@ -285,7 +298,28 @@ void organizeResults(string fileName, danglingBonds dba[], int dbAmount)
    
     //Now that all the values are saved, time to shove them into the DBs.
 	readResultFileHelper(dba, dbAmount, fileName, currentTable);
-    //Here, we check if the DBA checks true with ANY of the arrays inserted. //Verificar AND, NAND, NOR, OR, XOR, XNOR, fazer um Array com info de cada um.
+    
+    //Here, we check if the DBA checks true with ANY of the arrays inserted.
+
+    _and   = checkBTables(currentTable, AND8, 8);
+    _nand  = checkBTables(currentTable, NAND8, 8);
+    _xand  = checkBTables(currentTable, XAND8, 8);
+    _xnand = checkBTables(currentTable, XNAND8, 8);
+    _or    = checkBTables(currentTable, OR8, 8);
+    _xor   = checkBTables(currentTable, XOR8, 8);
+    _nor   = checkBTables(currentTable, XNOR8, 8);
+    _xnor  = checkBTables(currentTable, XNOR8, 8);
+    
+    //Now, we check if any of them was true;
+    if(_and){ /* Make Save File */ }
+    if(_nand) { }
+    if(_xand){ }
+    if(_xnand) { }
+    if(_or){ }
+    if(_xor) { }
+    if(_nor){ }
+    if(_xnor) { }
 	
     return;
 }
+

@@ -444,15 +444,23 @@ void readResultFileHelper(danglingBonds dba[], int dbAmount,string fileName, boo
 		for (int x = 0; x < dbAmount; x++){
 			if (dba[x].getObserved() == 1){
 				int pos = fileName.find(".xml");
-				string subs = fileName.substr(pos - 1, 1); // Not the best option, since only 3 -> 1 files can run... but for now it is what it is.
-				int helper = atoi(subs.c_str());
-				//cout << "SUBS: " << subs << endl;
-				situation[helper] = dba[x].getState();				
+				try{
+					string subs = fileName.substr(pos - 1, 1); // Not the best option, since only 3 -> 1 files can run... but for now it is what it is.
+					int helper = atoi(subs.c_str());
+					//cout << "SUBS: " << subs << endl;
+					situation[helper] = dba[x].getState();	
+				}
+				catch (exception){
+					cout << "ERROR!" << endl;
+				}
+				
+							
 			}
 		}
 		ResultFile.close();
 	}
 	else{ std::cout << "> error! Invalid File \n"; }
+	
 	delete[] X;
 	delete[] Y;
 	return;

@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Nov  9 12:27:00 2022
+# Make data base, printed on Wed Nov 16 11:22:51 2022
 
 # Variables
 
@@ -49,11 +49,11 @@ VSCODE_CWD = /mnt/z/Programas/VSCode
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/mixxs/.vscode-server/bin/4af164ea3a06f701fe3e89a2bcbb421d2026b68f/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Program Files/Eclipse Foundation/jdk-11.0.12.7-hotspot/bin:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64_win/compiler:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/msys64/mingw64:/mnt/c/msys64/mingw64/bin/:/mnt/c/Program Files/Java/jre1.8.0_291/bin:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Microsoft SQL Server/130/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Users/drxmi/AppData/Local/Programs/Python/Python39/Scripts/:/mnt/c/Users/drxmi/AppData/Local/Programs/Python/Python39/:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64_win/compiler:/mnt/c/Users/drxmi/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/drxmi/.dotnet/tools:/mnt/c/iverilog/bin:/mnt/c/iverilog/gtkwave/bin:/mnt/e/Arquivos de Programas/ffmpeg5:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files/PuTTY/:/mnt/c/Program Files/boost:/mnt/c/Program Files/swig:/mnt/c/Program Files (x86)/GnuWin32/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/LINGO/:/mnt/c/Users/drxmi/AppData/Local/Programs/Python/Python310/Scripts/:/mnt/c/Users/drxmi/AppData/Local/Programs/Python/Python310/:/mnt/c/Program Files/MySQL/MySQL Shell 8.0/bin/:/mnt/c/Users/drxmi/AppData/Local/Programs/Python/Python39/Scripts/:/mnt/c/Users/drxmi/AppData/Local/Programs/Python/Python39/:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64_win/compiler:/mnt/c/Users/drxmi/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/drxmi/.dotnet/tools:/mnt/c/iverilog/bin:/mnt/c/iverilog/gtkwave/bin:/mnt/c/Users/drxmi/AppData/Local/GitHubDesktop/bin:/mnt/c/Program Files/JetBrains/PyCharm 2021.3.1/bin:/mnt/c/Program Files/JetBrains/PyCharm Community Edition 2021.3.1/bin:/snap/bin
+PATH = /home/mixxs/.vscode-server/bin/4af164ea3a06f701fe3e89a2bcbb421d2026b68f/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files/Eclipse Adoptium/jdk-17.0.5.8-hotspot/bin:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Program Files/Eclipse Foundation/jdk-11.0.12.7-hotspot/bin:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64_win/compiler:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/msys64/mingw64:/mnt/c/msys64/mingw64/bin/:/mnt/c/Program Files/Java/jre1.8.0_291/bin:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Microsoft SQL Server/130/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Users/drxmi/AppData/Local/Programs/Python/Python39/Scripts/:/mnt/c/Users/drxmi/AppData/Local/Programs/Python/Python39/:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64_win/compiler:/mnt/c/Users/drxmi/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/drxmi/.dotnet/tools:/mnt/c/iverilog/bin:/mnt/c/iverilog/gtkwave/bin:/mnt/e/Arquivos de Programas/ffmpeg5:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files/PuTTY/:/mnt/c/Program Files/boost:/mnt/c/Program Files/swig:/mnt/c/Program Files (x86)/GnuWin32/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/LINGO/:/mnt/c/Users/drxmi/AppData/Local/Programs/Python/Python310/Scripts/:/mnt/c/Users/drxmi/AppData/Local/Programs/Python/Python310/:/mnt/c/Program Files/MySQL/MySQL Shell 8.0/bin/:/mnt/c/Users/drxmi/AppData/Local/Programs/Python/Python39/Scripts/:/mnt/c/Users/drxmi/AppData/Local/Programs/Python/Python39/:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64_win/compiler:/mnt/c/Users/drxmi/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/drxmi/.dotnet/tools:/mnt/c/iverilog/bin:/mnt/c/iverilog/gtkwave/bin:/mnt/c/Users/drxmi/AppData/Local/GitHubDesktop/bin:/mnt/c/Program Files/JetBrains/PyCharm 2021.3.1/bin:/mnt/c/Program Files/JetBrains/PyCharm Community Edition 2021.3.1/bin:/snap/bin
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-d1fdd496-d7e0-4801-b7eb-d021376b8222.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-e7c0bbb0-7574-45a0-9763-01d9eca7c945.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -226,6 +226,6 @@ makefile:
 # strcache performance: lookups = 38 / hit rate = 18%
 # hash-table stats:
 # Load=31/8192=0%, Rehash=0, Collisions=1/38=3%
-# Finished Make data base on Wed Nov  9 12:27:00 2022
+# Finished Make data base on Wed Nov 16 11:22:51 2022
 
  

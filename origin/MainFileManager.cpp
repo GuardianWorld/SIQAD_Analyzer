@@ -447,6 +447,7 @@ void readResultFileHelper(danglingBonds dba[], int dbAmount,string fileName, boo
 				try{
 					string subs = fileName.substr(pos - 1, 1); // Not the best option, since only 3 -> 1 files can run... but for now it is what it is.
 					int helper = atoi(subs.c_str());
+					//cout << fileName;
 					//cout << "SUBS: " << subs << endl;
 					situation[helper] = dba[x].getState();	
 				}

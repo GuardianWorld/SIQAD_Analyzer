@@ -87,5 +87,4 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
 
 bool checkBTables(bool mainTable[], bool checkTable[], int size);
 void printRandomAnnealFullResults(danglingBonds dba[], int dbAmount);
-void organizeResults(string fileName, danglingBonds dba[], int dbAmount);
-void checkRandomAnnealFullResults(danglingBonds dba[], int dbAmount);
+void organizeResults(danglingBonds dba[], int dbAmount, string originalFile);

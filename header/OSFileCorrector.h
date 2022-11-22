@@ -30,5 +30,15 @@ using namespace std;
 
 //Defines for Config file for Part 2;
 #define dir_configFile "./default/"
-
+#define dir_randomfileCreator "./RandomFileCreatorFolder/"
+#define dir_randomFileFoundResults "./RandomFileCreatorFolder/FoundResults/"
+#define dir_AND "./RandomFileCreatorFolder/FoundResults/AND/"
+#define dir_NAND "./RandomFileCreatorFolder/FoundResults/NAND/"
+#define dir_NOR "./RandomFileCreatorFolder/FoundResults/NOR/"
+#define dir_OR "./RandomFileCreatorFolder/FoundResults/OR/"
+#define dir_XAND "./RandomFileCreatorFolder/FoundResults/XAND/"
+#define dir_XNAND "./RandomFileCreatorFolder/FoundResults/XNAND/"
+#define dir_XNOR "./RandomFileCreatorFolder/FoundResults/XNOR/"
+#define dir_XOR "./RandomFileCreatorFolder/FoundResults/XOR/"
+#define dir_INV "./RandomFileCreatorFolder/FoundResults/INV/"
 #endif

@@ -182,7 +182,9 @@ void configurationFileRFC::makeRandomization(danglingBonds dba[], int dbAmount, 
 }
 
 int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePert, int seed, int *randomCalls){
-	string fileName = "./simulationFiles/Hexagon31.xml";
+	
+    string loadingBar;
+    string fileName = "./simulationFiles/Hexagon31.xml";
     string bufferStart;
     string bufferEnd;
 	int dbAmount = 0;
@@ -223,7 +225,7 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
         d = opendir(randomOutput);
         x = 0;
         if(d){
-            std::cout << "Progress Permutation:  |";
+            loadingBar = "Progress Permutation:  |";
             while((dir = readdir(d)) != NULL){
                 if(dir->d_name[0] != '.'){
                     fileName2 = randomOutput;
@@ -247,7 +249,8 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
                         fileName3.pop_back();
                         createPermutations(dba, bufferStart, bufferEnd, dbAmount, (fileName3 + "_"), randomOutputAnneal);
                         if(x >= ((inv/100) * step)){
-                            std::cout << "\u25A0" << std::flush;
+                            loadingBar.append("\u25A0");
+                            std::cout << loadingBar << std::flush;
                             step++;
                         }
                         x++;
@@ -264,7 +267,8 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
             }
         }
         //Delete Files in Folders.
-        std::cout << "| Done\n";
+        loadingBar.append("| Done\n");
+        std::cout << loadingBar;
         //std::cout << "Deleting files for next Batch!\n";
         system(deletionCommand1.c_str());
         //system(deletionCommand2.c_str());
@@ -346,7 +350,7 @@ void organizeResults(danglingBonds dba[], int dbAmount, string originalFile)
     if(_and || _nand || _xand || _xnand || _or || _xor || _nor || _xnor || _mux001 || _mux010 || _mux100){
 
         //cp ./randomGen/Hexagon31_42_12.xml ./RandomFileCreatorFolder/FoundResults/AND/
-
+        cout << "Found one!!!" << "/n";
 
         if(_and)   { mixAux = "cp " + originalFile + " " + dir_AND;    }
         if(_nand)  { mixAux = "cp " + originalFile + " " + dir_NAND;   }

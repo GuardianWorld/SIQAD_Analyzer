@@ -626,9 +626,13 @@ void callAnneal(int dbAmount, bool supressAnneal, string dirAnneal, string outAn
 					command.append(" ");
 					command.append(">nul");
 				}
-				std::cout << "> Attempting to call command: " << command.c_str() << '\n';
+				else{
+					std::cout << "> Attempting to call command: " << command.c_str() << '\n';
+				}
                 std::system(command.c_str());
-				std::cout << "> Done!\n";
+				if(!supressAnneal){
+					std::cout << "> Done!\n";
+				}
             }
         }
     }

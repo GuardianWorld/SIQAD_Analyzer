@@ -234,6 +234,9 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
                     if (dbAmount != 0) { 								
 				        perm = readList(filenamePert, dba, dbAmount, dbd);				//Read the list of perturbers and set in memory.
                         if(perm == -1){
+                            system(deletionCommand1.c_str());
+                            system(deletionCommand2.c_str());
+                            system(deletionCommand3.c_str());
                             return -1;
                         }
                         //Make permutations
@@ -249,13 +252,13 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
                         }
                         x++;
                         //Call Anneal on them.
-                        callAnneal(dbAmount, false, randomOutputAnneal, randomAnnealOutput_xml);
+                        callAnneal(dbAmount, true, randomOutputAnneal, randomAnnealOutput_xml);
                         //Check results.
                         //If results are favorable with wanted results, send the file to another folder
                         organizeResults(dba, dbAmount, fileName2);       
                         //system(deletionCommand1.c_str());
-                        //system(deletionCommand2.c_str());
-                        //system(deletionCommand3.c_str());
+                        system(deletionCommand2.c_str());
+                        system(deletionCommand3.c_str());
 				    } 
                 }
             }
@@ -263,7 +266,7 @@ int RandomBatch(danglingBonds dba[], configurationFileRFC rfc, string filenamePe
         //Delete Files in Folders.
         std::cout << "| Done\n";
         //std::cout << "Deleting files for next Batch!\n";
-        //system(deletionCommand1.c_str());
+        system(deletionCommand1.c_str());
         //system(deletionCommand2.c_str());
         //system(deletionCommand3.c_str());
         batchAmount++;
@@ -290,15 +293,19 @@ void organizeResults(danglingBonds dba[], int dbAmount, string originalFile)
     string mixAux;
 
     bool _and = true, _nand = true, _xand = true, _xnand = true,
-     _or = true, _xor = true, _nor = true, _xnor = true;
-    bool AND8[8] =   {0,0,0,0,0,0,0,1};
-    bool NAND8[8] =  {1,1,1,1,1,1,1,0};
-    bool XAND8[8] =  {1,0,0,0,0,0,0,1};
-    bool XNAND8[8] = {0,1,1,1,1,1,1,0};
-    bool OR8[8] =    {0,1,1,1,1,1,1,1};
-    bool XOR8[8] =   {0,1,1,0,1,0,0,1};
-    bool NOR8[8] =   {1,0,0,0,0,0,0,0};
-    bool XNOR8[8] =  {1,0,0,1,0,1,1,0};
+     _or = true, _xor = true, _nor = true, _xnor = true, _mux001 = true,
+     _mux010 = true, _mux100 = true;
+    bool AND8[8]    = {0,0,0,0,0,0,0,1};
+    bool NAND8[8]   = {1,1,1,1,1,1,1,0};
+    bool XAND8[8]   = {1,0,0,0,0,0,0,1};
+    bool XNAND8[8]  = {0,1,1,1,1,1,1,0};
+    bool OR8[8]     = {0,1,1,1,1,1,1,1};
+    bool XOR8[8]    = {0,1,1,0,1,0,0,1};
+    bool NOR8[8]    = {1,0,0,0,0,0,0,0};
+    bool XNOR8[8]   = {1,0,0,1,0,1,1,0};
+    bool MUX001[8]  = {0,0,1,0,0,1,1,1};
+    bool MUX010[8]  = {0,0,0,1,1,1,0,1};
+    bool MUX100[8]  = {0,0,1,1,0,1,0,1};
     bool invalid[8] = {1,1,1,1,1,1,1,1};
 
     bool currentTable[8] = {};
@@ -322,29 +329,36 @@ void organizeResults(danglingBonds dba[], int dbAmount, string originalFile)
     //Now that all the values are saved, time to analyze them.
     //Here, we check if the DBA checks true with ANY of the arrays inserted.
 
-    _and   = checkBTables(currentTable, AND8, 8);
-    _nand  = checkBTables(currentTable, NAND8, 8);
-    _xand  = checkBTables(currentTable, XAND8, 8);
-    _xnand = checkBTables(currentTable, XNAND8, 8);
-    _or    = checkBTables(currentTable, OR8, 8);
-    _xor   = checkBTables(currentTable, XOR8, 8);
-    _nor   = checkBTables(currentTable, XNOR8, 8);
-    _xnor  = checkBTables(currentTable, XNOR8, 8);
+    _and    = checkBTables(currentTable, AND8, 8);
+    _nand   = checkBTables(currentTable, NAND8, 8);
+    _xand   = checkBTables(currentTable, XAND8, 8);
+    _xnand  = checkBTables(currentTable, XNAND8, 8);
+    _or     = checkBTables(currentTable, OR8, 8);
+    _xor    = checkBTables(currentTable, XOR8, 8);
+    _nor    = checkBTables(currentTable, XNOR8, 8);
+    _xnor   = checkBTables(currentTable, XNOR8, 8);
+    _mux001 = checkBTables(currentTable, MUX001, 8);
+    _mux010 = checkBTables(currentTable, MUX010, 8);
+    _mux100 = checkBTables(currentTable, MUX100, 8);
+
     //cout << currentTable;
     //Now, we check if any of them was true;
-    if(_and || _nand || _xand || _xnand || _or || _xor || _nor || _xnor){
+    if(_and || _nand || _xand || _xnand || _or || _xor || _nor || _xnor || _mux001 || _mux010 || _mux100){
 
         //cp ./randomGen/Hexagon31_42_12.xml ./RandomFileCreatorFolder/FoundResults/AND/
 
 
-        if(_and){ mixAux = "cp " + originalFile + " " + dir_AND;  }
-        if(_nand) { mixAux = "cp " + originalFile + " " + dir_NAND;  }
-        if(_xand){ mixAux = "cp " + originalFile + " " + dir_XAND;   }
+        if(_and)   { mixAux = "cp " + originalFile + " " + dir_AND;    }
+        if(_nand)  { mixAux = "cp " + originalFile + " " + dir_NAND;   }
+        if(_xand)  { mixAux = "cp " + originalFile + " " + dir_XAND;   }
         if(_xnand) { mixAux = "cp " + originalFile + " " + dir_XNAND;  }
-        if(_or){ mixAux = "cp " + originalFile + " " + dir_OR;  }
-        if(_xor) { mixAux = "cp " + originalFile + " " + dir_XOR;  }
-        if(_nor){ mixAux = "cp " + originalFile + " " + dir_NOR;  }
-        if(_xnor) { mixAux = "cp " + originalFile + " " + dir_XNOR;  }
+        if(_or)    { mixAux = "cp " + originalFile + " " + dir_OR;     }
+        if(_xor)   { mixAux = "cp " + originalFile + " " + dir_XOR;    }
+        if(_nor)   { mixAux = "cp " + originalFile + " " + dir_NOR;    }
+        if(_xnor)  { mixAux = "cp " + originalFile + " " + dir_XNOR;   }
+        if(_mux001){ mixAux = "cp " + originalFile + " " + dir_MUX001; }
+        if(_mux010){ mixAux = "cp " + originalFile + " " + dir_MUX010; }
+        if(_mux100){ mixAux = "cp " + originalFile + " " + dir_MUX100; }
     }
     else
     {

@@ -41,4 +41,7 @@ using namespace std;
 #define dir_XNOR "./RandomFileCreatorFolder/FoundResults/XNOR/"
 #define dir_XOR "./RandomFileCreatorFolder/FoundResults/XOR/"
 #define dir_INV "./RandomFileCreatorFolder/FoundResults/INV/"
+#define dir_MUX001 "./RandomFileCreatorFolder/FoundResults/MUX001/"
+#define dir_MUX010 "./RandomFileCreatorFolder/FoundResults/MUX010/"
+#define dir_MUX100 "./RandomFileCreatorFolder/FoundResults/MUX100/"
 #endif
